@@ -21,6 +21,18 @@ jobs:
         with:
           node-version: 22
 
+      - name: Validate repository governance
+        run: node scripts/validate-governance.mjs
+
+      - name: Prove malformed governance is rejected
+        run: node --test tests/governance-validator.test.mjs
+
+      - name: Validate pull request contract
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node scripts/validate-governance.mjs --pr-env
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
@@ -155,10 +167,13 @@ jobs:
         shell: bash
         run: |
           {
-            echo "schema=s0_pa_browser_proof_v1"
+            echo "schema=s0_pb_governed_apwa_proof_v1"
             echo "head_sha=${{ github.event.pull_request.head.sha }}"
             echo "merge_test_sha=${{ github.sha }}"
             echo "run_id=${{ github.run_id }}"
+            echo "governance_repository=pass"
+            echo "governance_negative_tests=pass"
+            echo "governance_pr_contract=pass"
             echo "desktop=pass"
             echo "mobile=pass"
             echo "reduced_motion_lite=pass"
@@ -168,11 +183,11 @@ jobs:
             echo "external_deployed_preview=not_proven_by_this_workflow"
           } > proof/receipt.txt
 
-      - name: Export S0.PA validation artifact
+      - name: Export governed APWA validation artifact
         uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: s0-pa-browser-proof-${{ github.event.pull_request.head.sha }}
+          name: s0-pb-governed-apwa-proof-${{ github.event.pull_request.head.sha }}
           path: |
             proof
             dist
