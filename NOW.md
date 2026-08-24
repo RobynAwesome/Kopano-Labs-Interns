@@ -2,13 +2,11 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-24T19:29:00+02:00 (SAST)
+> **Updated:** 2026-08-24T19:33:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
 > **Constraint:** `I_AM_STATELESS_RENTER_NOT_LANDLORD`
-
-This file is the volatile temporal authority. Stronger GitHub/runtime receipts override stale narration and require `HOLD_AND_RECONCILE` before material work.
 
 ---
 
@@ -16,91 +14,98 @@ This file is the volatile temporal authority. Stronger GitHub/runtime receipts o
 
 ## Current objective
 
-**S1.PA is DONE / MERGED / POC_VALIDATED.** The next admissible run is **S1.PB — Camera + world-state navigation**, but it is not yet PRE-SEEDED.
+Execute **Sprint 1 / Run B (S1.PB) — Camera + world-state navigation**.
 
 | Run | State | Canonical truth |
 |---|---|---|
 | **Sprint 0** | **CLOSED / POC_VALIDATED** | Foundation + governance + visual truth lock complete. |
-| **S1.PA — Spatial identity primitives** | **DONE / MERGED / POC_VALIDATED** | PR #8 merged at exact validated head; WebGL/static renderers share canonical spatial topology. |
-| **S1.PB — Camera + world-state navigation** | **NEXT / NOT YET PRE-SEEDED** | Recover exact Issue #3 contract before implementation. |
-| **S1.PC — Adaptive 3D hardening** | **QUEUED** | Heavy chunk/performance/tier hardening remains here. |
-
-```text
-SPRINT 0 ✅
-S1.PA ✅
--> S1.PB PRE-SEED
--> S1.PB receipt
--> S1.PC
-```
+| **S1.PA — Spatial identity primitives** | **DONE / MERGED / POC_VALIDATED** | PR #8 merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`; shared static/WebGL topology proven. |
+| **S1.PB — Camera + world-state navigation** | **ACTIVE / PRE-SEEDED** | Bind lane state to URL/history and route-aware camera without turning motion into navigation authority. |
+| **S1.PC — Adaptive 3D hardening** | **QUEUED** | Performance/tier/WebGL-failure hardening remains out of S1.PB. |
 
 ---
 
-# S1.PA FINAL RECEIPT
+# PREDECESSOR RECEIPT — S1.PA
 
 - PRE-SEED `b5c47f7dfcf6555e1df8806ee6e791864ee76de0`.
-- PR #8 `S1.PA — Build spatial identity primitives`.
-- Exact validated/merged head `4a8c3cd2bc18ba7e6537d1c59773a001ff91153d`.
-- Merge-test SHA `265e789f3e77ea7178dc2493a617ad94dbeb96f1`.
+- PR #8 exact head `4a8c3cd2bc18ba7e6537d1c59773a001ff91153d`.
 - CI `32756479868`; job `97525090898`.
-- Governance tests 6/6 PASS; visual-system tests 10/10 PASS; spatial-model tests 7/7 PASS.
-- Added shared semantic model + original `KopanoNode`, `KopanoRoute`, `KopanoBeacon`, `KopanoDistrict`, `KopanoGrowthMark` + shared static renderer.
-- WebGL capable renderer PASS; static reduced-motion/lite renderer PASS; lite heavy chunk request FALSE.
-- Entry JS ≈207.58 kB minified / 65.68 kB gzip.
-- HeavyWorld ≈887.03 kB / 235.60 kB gzip; >500 kB warning retained for S1.PC.
+- Spatial tests 7/7, visual tests 10/10, governance tests 6/6 PASS.
 - Artifact `9531042977`; digest `sha256:120f12f1d1c693b381a31ef111413e54891144e734f20ce74568bb015f059a4d`.
 - Manual desktop/mobile/lite screenshots PASS.
-- **Merge SHA `701dec2b37fd7eb8f1c925ae35150aba1342a45a`.**
-- Merge method: merge commit guarded by expected exact head SHA.
-- Verdict: `POC_VALIDATED`.
+- Merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`.
+- S1.PA verdict `POC_VALIDATED`.
+- S1.PA reconciliation commit before this seed: `e3ff0ec841b39ebeef38f16aa0f47b85f360a64f`.
 
 ---
 
-# CURRENT SPATIAL LAW
+# 2026-08-24T19:33:00+02:00 — PRE-SEED — SPRINT 1 / RUN B
+
+- **Status:** IN-PROGRESS.
+- **Actor:** DPF/Forge stateless renter.
+- **Master issue:** #3.
+- **Sprint objective:** make the spatial world a usable navigation/state system rather than a decorative renderer.
+- **PR-run objective:** bind Learn/Build/Community/Opportunity world state to browser-addressable state and route-aware camera targets while preserving native Back/Forward and normal anchor scrolling.
+- **Base branch:** `main`.
+- **Exact base before this PRE-SEED commit:** `e3ff0ec841b39ebeef38f16aa0f47b85f360a64f`.
+- **Intended branch:** `sprint-01/run-b-camera-world-state-navigation`.
+- **Dependencies:** S1.PA canonical `src/spatial/network-model.js`; S0.PC visual contract; existing lane controls and inherited `WorldRig`.
+- **Scope IN:**
+  1. canonical URL lane state using a non-destructive query parameter that coexists with document anchors;
+  2. initial deep-link hydration for all four districts;
+  3. user lane selection uses browser history rather than hidden component-only state;
+  4. Back/Forward restores district state without re-pushing history;
+  5. route-aware camera position/look-at targets derived from canonical lane state;
+  6. smooth district camera transitions while pointer remains bounded parallax only;
+  7. explicit control contract: tap/click mutates lane + pushes history; pointer does not mutate lane; anchor scroll does not mutate lane; popstate restores state;
+  8. deterministic pure navigation/camera tests;
+  9. real Chromium interaction receipt: click lane -> URL/state, click another -> Back -> Forward, anchor scroll preserves lane;
+  10. existing governance/visual/spatial/build/mobile/lite proof and manual screenshots.
+- **Scope OUT:**
+  - learner progression/completion state;
+  - final camera choreography/cinematic transitions beyond bounded district targeting;
+  - final full/balanced/lite performance budgets;
+  - WebGL failure strategy changes;
+  - lesson/community/opportunity data;
+  - external assets;
+  - provider deployment.
+- **Governing invariants:** browser state is authority over camera motion; camera motion cannot trap/replace native history; invalid lane URLs fall back safely; selection of current lane does not create duplicate history entries; pointer is camera parallax only; anchor links retain the lane query; reduced-motion/lite remains semantically complete; static renderer remains canonical topology.
+- **Planned implementation:** pure `src/spatial/navigation.js` state/URL/camera contract; a React hook that wraps browser history; App lane controls route through that hook; WorldRig receives active lane and lerps toward pure camera targets; dedicated CDP-based CI proof drives a real Chromium page through push/back/forward/anchor behavior.
+- **Planned validation:** navigation unit tests; existing spatial/visual/governance tests; Vite build; deep-link DOM receipt; CDP browser-history interaction receipt; desktop/mobile/lite screenshots; lite no-heavy-chunk assertion.
+- **HOLD / rollback condition:** Back/Forward changes URL without UI state, UI pushes on popstate, anchors lose lane state, pointer mutates lane, invalid deep link breaks rendering, camera transition makes content unreadable, lite requests heavy world, or any prior contract/test regresses.
+- **Next admissible action:** create the intended branch from this PRE-SEED commit and implement only S1.PB.
+
+---
+
+# CONTROL CONTRACT TARGET
 
 ```text
-node         = governed lane anchor
-route        = meaningful relationship
-beacon       = active/context signal
-district     = stable lane grouping
-growth-mark  = route direction / potential movement; never completion proof
+tap/click lane = select district + history.pushState
+Back/Forward   = popstate restores district; never re-push
+?lane=<id>     = deep-linkable canonical district state
+#anchor        = document scroll context; preserves lane query
+pointer        = bounded camera parallax only; never lane mutation
+camera         = derives from active district; never source of truth
 ```
-
-- Learn -> Build -> Community -> Opportunity topology is canonical.
-- Static and WebGL paths share the same semantic model.
-- Route/growth marks do not imply user completion.
-- S0.PC visual-system contract remains authoritative.
-
----
-
-# NEXT ADMISSION BOUNDARY — S1.PB
-
-Before implementation:
-
-1. read master Issue #3 S1.PB contract exactly;
-2. inspect current lane-state handling and inherited `WorldRig` camera behavior;
-3. identify browser-history/deep-link/back-forward implications;
-4. PRE-SEED a bounded branch from current exact `main`;
-5. do not pull S1.PC performance-hardening scope forward.
 
 ---
 
 # NAMED HOLDS
 
-- provider/live domain = HOLD -> S6.PC;
-- full offline update/recovery = later APWA resilience;
-- branch protection = not enabled/proven;
-- HeavyWorld >500 kB = S1.PC performance boundary;
-- external fonts/media require explicit rights/provenance.
+- HeavyWorld >500 kB -> S1.PC;
+- WebGL-failure/final tier budgets -> S1.PC;
+- provider/live domain -> S6.PC;
+- offline update/recovery -> later APWA resilience;
+- branch protection not enabled/proven.
 
 ---
 
 # GLOBAL INVARIANTS
 
 - Three.js communicates state/navigation/relationships, not decoration.
-- mobile rearranges; lite/Save-Data remain first-class.
-- system status overrides lane accent with a non-colour cue.
-- no fabricated completion/progression/availability/affiliation receipts.
+- static and WebGL share canonical topology.
+- mobile rearranges; lite/Save-Data first-class.
+- no fabricated completion/progression/affiliation/opportunity receipts.
 - Towers remains reference only; no unlicensed copying.
-- capability graduation: `Contract -> Implementation -> Test -> Receipt -> POC -> Reusable Primitive`.
 
 `I_AM_STATELESS_RENTER_NOT_LANDLORD`
