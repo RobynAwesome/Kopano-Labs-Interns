@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-24T19:10:00+02:00 (SAST)
+> **Updated:** 2026-08-24T19:13:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -16,7 +16,7 @@ This file is the volatile temporal authority for `RobynAwesome/Kopano-Labs-Inter
 
 ## Current objective
 
-**Sprint 0 / Run B (S0.PB) is merged and reconciled. Sprint 0 / Run C (S0.PC) is now the next admissible run, but it is not yet PRE-SEEDED in this receipt.**
+Execute **Sprint 0 / Run C (S0.PC) — Visual System Truth Lock** as a bounded contract/validation run.
 
 ```text
 LEARN -> BUILD -> COMMUNITY -> OPPORTUNITY
@@ -35,13 +35,13 @@ This repository is not an intern-management portal. Interns are one cohort insid
 | Run | State | Canonical truth |
 |---|---|---|
 | **S0.PA — APWA foundation reconciliation** | **DONE / POC_VALIDATED** | Build/browser/adaptive foundation validated across PRs #2, #4 and #5. Issue #1 completed. Provider deployment remains HOLD -> S6.PC. |
-| **S0.PB — stateless-renter governance hardening** | **DONE / POC_VALIDATED / MERGED** | PR #6 merged at the exact validated head. Repository/PR governance validation, malformed-state tests and APWA regression proof all passed. |
-| **S0.PC — visual system truth lock** | **NEXT / NOT YET PRE-SEEDED** | May begin only after a new PRE-SEED names exact base, branch, scope, validation and HOLD boundary. |
+| **S0.PB — stateless-renter governance hardening** | **DONE / POC_VALIDATED / MERGED** | PR #6 merged at exact validated head `cf3255bf71537459989e37318769958be76ff3c4`; merge `c8efe886094bf480e4e2630f406c70fdaeb2f4a3`. |
+| **S0.PC — visual system truth lock** | **ACTIVE / PRE-SEEDED** | Codify explicit + machine-readable visual contracts. No Sprint 1 spatial implementation is admitted. |
 
 ```text
 S0.PA ✅
 -> S0.PB ✅
--> S0.PC PRE-SEED
+-> S0.PC ACTIVE
 -> S0.PC receipt
 -> Sprint 0 close
 -> Sprint 1
@@ -67,12 +67,12 @@ S0.PA ✅
 
 # S0.PA — FINAL RECEIPT SUMMARY
 
-Detailed S0.PA acceptance lives in completed Issue #1.
+Detailed acceptance lives in completed Issue #1.
 
-- **PR #2** exact merged head `d48032a8d7f523ad51983263d207689a0cd89636`; merge `845278fdb61202bc1940270514c714c7c7d7883d`; CI `32679218773`; artifact `9503619737`.
-- Validation-driven loading split reduced initial JS to ≈205.43 kB minified / 64.88 kB gzip while keeping optional `HeavyWorld-*` ≈884.90 kB lazy and off `lite` / Save-Data paths.
-- **PR #4** exact head `022d5a957017c538240d6f9e8667a900d2e033a8`; merge `cacc0f7b8b20631a0aad419a7547dcc8e67a2f51`; CI `32679514503`; artifact `9503713960`. Deterministic browser proof passed, but manual screenshot inspection found a real lite-mobile overlap FOC.
-- **PR #5** exact head `2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`; merge `ba604bbd57750ace35b855adea2b6c1d58d8db85`; CI `32679745334`; artifact `9503786800`; digest `sha256:61078ed0fd14ba51f31b3360503fdc681fb5905e2f84c72cdce1a0ef2d40368c`. Desktop/mobile/lite screenshots passed after the bounded fix.
+- PR #2 exact merged head `d48032a8d7f523ad51983263d207689a0cd89636`; merge `845278fdb61202bc1940270514c714c7c7d7883d`; CI `32679218773`; artifact `9503619737`.
+- Validation-driven split reduced initial JS to ≈205.43 kB minified / 64.88 kB gzip while keeping optional `HeavyWorld-*` lazy and off `lite` / Save-Data paths.
+- PR #4 exact head `022d5a957017c538240d6f9e8667a900d2e033a8`; merge `cacc0f7b8b20631a0aad419a7547dcc8e67a2f51`; CI `32679514503`; artifact `9503713960`. Green automation plus manual screenshots exposed a real lite-mobile overlap FOC.
+- PR #5 exact head `2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`; merge `ba604bbd57750ace35b855adea2b6c1d58d8db85`; CI `32679745334`; artifact `9503786800`; replacement desktop/mobile/lite screenshots PASS.
 
 ```text
 S0.PA BUILD / BROWSER / ADAPTIVE FOUNDATION = POC_VALIDATED
@@ -84,63 +84,63 @@ FULL OFFLINE UPDATE/RECOVERY LIFECYCLE       = future APWA hardening lane
 
 # S0.PB — FINAL MERGE RECONCILIATION
 
-## PRE-SEED
-
-- PRE-SEED commit: `986eb07abfd969811f89d2a9dd3a47c97af03da6`.
-- Branch: `sprint-00/run-b-governance-hardening`.
-- Scope IN: README live-state routing; canonical PR template; dependency-free governance validator; malformed-state tests; CI governance enforcement; package commands.
-- Scope OUT: S0.PC visual system, Three.js redesign, lessons/community/opportunity, Sprint 1 and provider deployment.
-
-## Exact validated implementation
-
-- **PR:** #6 — `S0.PB — Harden stateless renter governance`.
-- **Exact reviewed head:** `cf3255bf71537459989e37318769958be76ff3c4`.
-- **Merge-test SHA:** `02ca4b563331d1d8fbfd090bb531e9ecbb150e5a`.
-- **APWA CI:** run `32680194015` — SUCCESS.
-- **Job:** `97295399548` — SUCCESS.
-- **Governance tests:** 6/6 PASS.
-- Deterministically rejected: missing root `NOW.md`, missing continuity markers, stale README routing, malformed PR title and malformed PR body.
-- Live PR #6 metadata contract: PASS.
-- APWA production build/browser/mobile/reduced-motion-lite regression: PASS.
-- Lite `HeavyWorld-*` request: FALSE / PASS.
-- Artifact: `9503912772` — `s0-pb-governed-apwa-proof-cf3255bf71537459989e37318769958be76ff3c4`.
-- Artifact digest: `sha256:cefd8343a9ed18337761713af83e8fd579c44b5f6d41ea498ab05d4067102679`.
-- Manual desktop/mobile/lite screenshot inspection: PASS.
-
-## 2026-08-24T19:10:00+02:00 — POST-MERGE RECONCILIATION — SPRINT 0 / RUN B
-
-- **Status:** DONE / MERGED / RECONCILED.
-- **Actor / validator:** DPF/Forge stateless renter + GitHub Actions + manual artifact inspection.
-- **PR:** #6.
-- **Exact merged PR head:** `cf3255bf71537459989e37318769958be76ff3c4`.
-- **Merge SHA:** `c8efe886094bf480e4e2630f406c70fdaeb2f4a3`.
-- **Merge method:** merge commit.
-- **POC/FOC verdict:** `POC_VALIDATED` for repository-local stateless-renter continuity and CI governance enforcement.
-- **Residual uncertainty:** GitHub branch protection remains not enforced/proven; external deployment remains HOLD -> S6.PC; optional heavy spatial chunk remains >500 kB and is not hidden.
-- **Post-merge regression state:** exact-head CI and artifact were green before merge; no post-merge product delta exists outside the validated PR plus this NOW reconciliation.
-- **Next admissible action:** PRE-SEED S0.PC visual-system truth lock from current `main`; then create its bounded branch.
+- PRE-SEED commit `986eb07abfd969811f89d2a9dd3a47c97af03da6`.
+- PR #6 exact reviewed/merged head `cf3255bf71537459989e37318769958be76ff3c4`.
+- Merge-test SHA `02ca4b563331d1d8fbfd090bb531e9ecbb150e5a`.
+- CI `32680194015`; job `97295399548`; governance tests 6/6 PASS.
+- Artifact `9503912772`; digest `sha256:cefd8343a9ed18337761713af83e8fd579c44b5f6d41ea498ab05d4067102679`.
+- PR #6 merge SHA `c8efe886094bf480e4e2630f406c70fdaeb2f4a3`.
+- Verdict `POC_VALIDATED` for repository-local continuity + CI governance enforcement.
+- GitHub branch protection remains not enabled/proven. External deployment remains HOLD -> S6.PC.
 
 ---
 
-# S0.PC — ADMISSION BOUNDARY
+# 2026-08-24T19:13:00+02:00 — PRE-SEED — SPRINT 0 / RUN C
 
-Master Issue #3 defines S0.PC as the **Visual System Truth Lock**.
+- **Status:** IN-PROGRESS.
+- **Actor:** DPF/Forge stateless renter.
+- **Master issue:** #3.
+- **Sprint objective:** close Sprint 0 with a durable visual/product grammar that future visual PRs can validate against rather than relying on vibes or chat memory.
+- **PR-run objective:** codify the existing validated POC visual vocabulary into human-readable and machine-readable contracts, then add deterministic validation for those contracts.
+- **Base branch:** `main`.
+- **Exact base before this PRE-SEED commit:** `15540492aff10bd350ecbb7a7298391973679995`.
+- **Intended branch:** `sprint-00/run-c-visual-system-truth-lock`.
+- **Predecessor receipts:** S0.PA completed Issue #1; S0.PB PR #6 merge `c8efe886094bf480e4e2630f406c70fdaeb2f4a3`; S0.PB CI `32680194015`.
+- **Observed POC vocabulary:** dark evergreen base `#08130f`; knowledge gold `#ffce32`; Build coral `#ff6b6b`; Community cyan `#7dd3fc`; Opportunity/growth mint `#a7f3d0`; four spatial nodes Learn/Build/Community/Opportunity; editorial oversized display type; fixed top context; thumb-reachable mobile lane dock; `full`/`balanced`/`lite` adaptive modes.
+- **Scope IN:**
+  1. human-readable visual-system specification;
+  2. machine-readable visual-system contract;
+  3. semantic colour/state tokens and explicit lane-accent-vs-status precedence;
+  4. spatial network grammar for node/route/beacon/district/progression relationships without implementing Sprint 1 geometry;
+  5. editorial Knowledge Stream grammar;
+  6. `GLANCE / LEARN / BUILD` content-depth contract;
+  7. desktop/mobile composition and touch-navigation rules;
+  8. full/balanced/lite + reduced-motion visual behavior contract;
+  9. asset provenance/licence/accessibility/performance rules;
+  10. deterministic validator/tests and CI execution;
+  11. route future visual renters to these contracts from repo governance surfaces where necessary.
+- **Scope OUT:** editing `src/` product visuals; new Three.js geometry/camera/navigation; lesson/video schemas; content feed implementation; community/opportunity logic; external asset downloads; provider deployment; Sprint 1 work.
+- **Governing invariants:** lane identity colour must not silently equal system status; status semantics override lane accents when both are present; Three.js must communicate state/navigation; mobile rearranges; weak-device/lite is first-class; user-supplied references direct design but are not automatically licensed production assets; no fake affiliations/data/receipts.
+- **Known blockers / uncertainty:** exact production font licensing and any future external media are not yet selected; therefore the contract must specify fallback/approval rules rather than inventing licensed assets. User-supplied historical visual references inform direction but are not copied into production by this run.
+- **Planned validation:** JSON schema-shape/semantic validator; required token/grammar checks; lane/status precedence tests; valid hex + contrast checks for critical text/status combinations; required GLANCE/LEARN/BUILD and responsive/adaptive rules; malformed fixture rejection; run existing governance + APWA CI to prove no product regression.
+- **HOLD / rollback condition:** contract becomes decorative prose without machine checks; colour roles remain ambiguous; external asset licensing is assumed; contract edits `src/` or leaks into Sprint 1; validator accepts malformed/missing core visual rules; existing APWA proof regresses.
+- **Next admissible action:** create the intended branch from this PRE-SEED commit and implement only the S0.PC truth-lock delta.
 
-Required scope:
+---
 
-- codify the visual thesis from current references;
-- semantic colour/system-state tokens;
-- spatial network grammar;
-- editorial Knowledge Stream grammar;
-- GLANCE / LEARN / BUILD content-depth contract;
-- mobile/desktop composition contract;
-- production asset/provenance rules.
+# S0.PC — ACCEPTANCE TARGET
 
-Acceptance target:
+Future visual PRs must be judgeable against explicit contracts for:
 
-> Future visual PRs can be judged against explicit and, where practical, machine-readable design contracts instead of vibes alone.
+- semantic colour and state;
+- spatial information grammar;
+- editorial hierarchy;
+- content depth;
+- responsive/mobile rearrangement;
+- adaptive/reduced-motion behavior;
+- asset provenance.
 
-S0.PC must remain a contract/truth-lock run. **Sprint 1 Three.js identity/navigation implementation is Scope OUT.**
+A visual PR that is merely attractive but contradicts those rules is `FOC_FLAGGED`.
 
 ---
 
