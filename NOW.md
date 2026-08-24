@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-24T03:28:44+02:00 (SAST)
+> **Updated:** 2026-08-24T03:30:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -16,7 +16,9 @@
 
 ## Current objective
 
-Complete the physical merge/reconciliation of **Sprint 0 / Run A (S0.PA)**. The bounded build/browser/adaptive foundation is now validated on PR #5 exact head. Do not begin S0.PB until PR #5 is merged and its merge SHA is reconciled into this file.
+Execute **Sprint 0 / Run B (S0.PB) — stateless-renter and sprint governance hardening**.
+
+S0.PA is complete and receipted. Do not begin S0.PC visual-system truth-lock work inside this run.
 
 ```text
 LEARN -> BUILD -> COMMUNITY -> OPPORTUNITY
@@ -33,16 +35,18 @@ This repository is not an intern-management portal. Interns are one cohort insid
 ## Canonical entry order
 
 1. Assert `I_AM_STATELESS_RENTER_NOT_LANDLORD`.
-2. Read `README.md`.
-3. Read master Issue #3.
-4. Read root `NOW.md` completely.
+2. Read `README.md` for durable product purpose only.
+3. Read master Issue #3 for the canonical sprint map.
+4. Read repository-root `NOW.md` completely for current state.
 5. Read `AGENTS.md`.
 6. Read `governance/EXECUTION_PROTOCOL.md`.
-7. Inspect exact GitHub receipts.
-8. Recover admitted Sprint + Run.
-9. `HOLD_AND_RECONCILE` on conflict.
+7. Inspect exact GitHub issue/PR/branch/check receipts.
+8. Recover the single admitted Sprint + Run.
+9. `HOLD_AND_RECONCILE` when stronger evidence conflicts.
 10. PRE-SEED before material implementation.
 11. POST-SEED/reconcile before handoff, merge, or next-run admission.
+
+`README.md`, prior chats, model memory, screenshots, or another repository's NOW may inform context; none replaces this root `NOW.md` as temporal truth.
 
 ---
 
@@ -50,145 +54,85 @@ This repository is not an intern-management portal. Interns are one cohort insid
 
 | Run | State | Canonical truth |
 |---|---|---|
-| **S0.PA — APWA foundation reconciliation** | **VALIDATED / PR #5 READY TO MERGE** | Production build, desktop/mobile runtime, reduced-motion/lite behavior and lite no-heavy-chunk behavior are receipted. The lite-mobile screenshot FOC was repaired and re-inspected. External provider deployment is deliberately separate and transferred to the deployment/launch lane. |
-| **S0.PB — renter/sprint governance hardening** | **BLOCKED UNTIL S0.PA MERGE RECONCILIATION** | Bootstrap governance exists; begin only after PR #5 merge SHA is written here. |
-| **S0.PC — visual system truth lock** | **QUEUED** | No implementation until predecessor receipt law permits it. |
+| **S0.PA — APWA foundation reconciliation** | **DONE / POC_VALIDATED** | Build/browser/adaptive foundation validated across PRs #2, #4, #5. Issue #1 closed completed. Provider deployment remains an explicit HOLD transferred to S6.PC. |
+| **S0.PB — renter/sprint governance hardening** | **ACTIVE / PRE-SEEDED** | Harden the existing prose governance into a renter-safe entry surface, PR contract and deterministic governance check. |
+| **S0.PC — visual system truth lock** | **QUEUED** | No spatial/editorial visual redesign or Sprint 1 implementation is admitted yet. |
 
 ```text
-S0.PA PR #5 merge + reconciliation
--> S0.PB PRE-SEED
--> S0.PB receipt
--> S0.PC PRE-SEED
--> S0.PC receipt
+S0.PA ✅
+-> S0.PB ACTIVE
+-> S0.PC
 -> Sprint 0 close
 -> Sprint 1
 ```
 
 ---
 
-# S0.PA — CANONICAL RECEIPT CHAIN
+# S0.PA — FINAL RECONCILIATION RECEIPT
 
-## A. Legacy APWA foundation — PR #2
+S0.PA's detailed acceptance and receipt chain is persisted in completed Issue #1. Current canonical summary:
 
-- **Issue:** #1.
-- **PR #2 exact merged head:** `d48032a8d7f523ad51983263d207689a0cd89636`.
-- **PR #2 merge commit:** `845278fdb61202bc1940270514c714c7c7d7883d`.
-- **APWA CI:** run `32679218773` — SUCCESS.
-- **Build job:** `97292799818` — SUCCESS.
-- **Artifact:** `9503619737` / `s0-pa-validation`.
-- **Artifact digest:** `sha256:0d251e3dea13e24ac5ea4e2f7882ed9d00411d1f90a67bb42f81f0bd2530b0a2`.
-- **Entry JS after validation-driven code splitting:** ≈205.43 kB minified / 64.88 kB gzip.
-- **Optional heavy Three.js chunk:** ≈884.90 kB minified / 235.17 kB gzip.
-- Heavy R3F/Three.js is lazy; `lite` / Save-Data uses a static network path.
-- Build proof existed; browser/visual proof was still pending at this stage.
+### PR #2 — foundation + adaptive loading
 
-## B. Deterministic browser proof — PR #4
+- exact merged head `d48032a8d7f523ad51983263d207689a0cd89636`;
+- merge `845278fdb61202bc1940270514c714c7c7d7883d`;
+- APWA CI `32679218773` SUCCESS;
+- artifact `9503619737`;
+- heavy R3F/Three.js made lazy and excluded from `lite` / Save-Data path.
 
-- **PR #4:** merged.
-- **Exact head:** `022d5a957017c538240d6f9e8667a900d2e033a8`.
-- **Merge commit:** `cacc0f7b8b20631a0aad419a7547dcc8e67a2f51`.
-- **APWA CI:** run `32679514503` — SUCCESS.
-- **Job:** `97293596152` — SUCCESS.
-- **Artifact:** `9503713960`.
-- **Artifact digest:** `sha256:b046556758cb48ed4c81bcc496eb8b2361e825edff1cb0ecae9b1718158e016b`.
-- Chromium: Google Chrome `151.0.7922.137`.
+### PR #4 — deterministic browser proof
 
-Automated assertions proved:
+- exact head `022d5a957017c538240d6f9e8667a900d2e033a8`;
+- merge `cacc0f7b8b20631a0aad419a7547dcc8e67a2f51`;
+- APWA CI `32679514503` SUCCESS;
+- artifact `9503713960`;
+- desktop/mobile/lite runtime proved;
+- screenshot inspection, despite green CI, flagged a lite-mobile caption/headline collision.
 
-```text
-production Vite preview reachable        PASS
-manifest reachable                       PASS
-service-worker script reachable          PASS
-desktop DOM + screenshot                 PASS
-390×844 mobile DOM + screenshot          PASS
-forced reduced-motion selects lite       PASS
-lite static-world path                   PASS
-lite requests HeavyWorld-*               FALSE / PASS
-```
+### PR #5 — visual remediation
 
-Manual screenshot inspection then found:
+- exact reviewed head `2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`;
+- merge `ba604bbd57750ace35b855adea2b6c1d58d8db85`;
+- APWA CI `32679745334` SUCCESS;
+- artifact `9503786800` / digest `sha256:61078ed0fd14ba51f31b3360503fdc681fb5905e2f84c72cdce1a0ef2d40368c`;
+- bounded delta `src/static-world.css`, +16/-0;
+- replacement screenshots manually inspected: desktop PASS, normal mobile PASS, lite mobile PASS.
+
+### S0.PA verdict
 
 ```text
-desktop.png      PASS
-mobile.png       PASS
-mobile-lite.png  FOC — floating lane caption overlapped hero copy
+BUILD / BROWSER / ADAPTIVE FOUNDATION = POC_VALIDATED
+EXTERNAL PROVIDER DEPLOYMENT          = HOLD -> S6.PC
+FULL OFFLINE UPDATE/RECOVERY LIFECYCLE= future APWA hardening lane
 ```
 
-Green automation therefore did not promote the visual claim.
-
-## C. Lite-mobile visual remediation — PR #5
-
-### PRE-SEED
-
-- **PRE-SEED commit:** `962808ba6b334af5fdc9fb04989eeac82a43c8e1`.
-- **Branch:** `sprint-00/run-a-lite-mobile-visual-fix`.
-- **Scope IN:** only the ≤700px `lite` overlap repair and revalidation.
-- **Scope OUT:** desktop redesign, normal-mobile redesign, lessons, S0.PB, S0.PC, Sprint 1, provider deployment.
-
-### Exact implementation
-
-- **PR #5:** `S0.PA — Repair lite mobile visual overlap`.
-- **Exact reviewed head:** `2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`.
-- **Bounded delta:** 1 file, `src/static-world.css`, +16 / -0.
-- On ≤700px `lite` only:
-  - hide the redundant floating `.world-caption`;
-  - preserve active lane through fixed thumb navigation/pathway state;
-  - tighten lite hero bottom position;
-  - slightly reduce/relax lite headline sizing.
-
-### Validation receipts
-
-- **APWA CI:** run `32679745334` — SUCCESS on exact PR #5 head.
-- **Browser-proof artifact:** `9503786800`.
-- **Artifact name:** `s0-pa-browser-proof-2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`.
-- **Artifact digest:** `sha256:61078ed0fd14ba51f31b3360503fdc681fb5905e2f84c72cdce1a0ef2d40368c`.
-- Existing deterministic browser suite passed again, including lite `HeavyWorld-*` exclusion.
-
-Manual inspection of replacement exact-head screenshots:
-
-```text
-desktop.png      PASS — no observed regression
-mobile.png       PASS — normal balanced mobile composition preserved
-mobile-lite.png  PASS — caption/headline collision removed; CTA and thumb dock remain legible
-```
-
-### POST-SEED — S0.PA
-
-- **Status:** VALIDATED / READY TO MERGE PR #5.
-- **Actor / validator:** DPF/Forge stateless renter + GitHub Actions + manual screenshot inspection.
-- **Branch:** `sprint-00/run-a-lite-mobile-visual-fix`.
-- **Exact reviewed head:** `2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`.
-- **PR:** #5.
-- **Validation:** build + browser desktop + browser mobile + reduced-motion/lite + static PWA surfaces + lite no-heavy-chunk + screenshot review.
-- **Errors / FOC:** original lite overlap is resolved on the exact reviewed head; no new bounded visual regression observed in exported screenshots.
-- **POC/FOC verdict:** `POC_VALIDATED` for the S0.PA build/browser/adaptive foundation.
-- **Merge state:** PR #5 NOT YET MERGED at this receipt.
-- **Residual uncertainty:** no external provider deployment is witnessed; service-worker script reachability is proven, but full install/update/offline lifecycle hardening remains future work.
-- **Next admissible action:** merge PR #5 only if head remains `2ca911361a4c4750ebc6c76ecfb4e2dbf53cc3c6`; then reconcile merge SHA here before S0.PB.
+Issue #1 was closed completed on 2026-08-24 after the provider/deployment proof boundary was explicitly separated rather than fabricated.
 
 ---
 
-# DEPLOYMENT / OFFLINE BOUNDARY — EXPLICIT HOLD TRANSFER
+# 2026-08-24T03:30:00+02:00 — PRE-SEED — SPRINT 0 / RUN B
 
-S0.PA does **not** claim a durable public provider deployment.
-
-Connected Vercel inventory has no witnessed project linked to `RobynAwesome/Kopano-Labs-Interns`. CI-hosted Vite preview proves browser runtime; it does not prove Vercel/domain ownership.
-
-The external deployment/live-domain proof belongs to the later production launch lane (**S6.PC**) unless master Issue #3 explicitly re-admits it earlier.
-
-Likewise, S0.PA proves the service-worker script is shipped/reachable; full offline install/update/recovery lifecycle hardening remains admitted later under APWA resilience/production hardening.
-
-This is a **named HOLD transfer**, not a hidden completion claim.
-
----
-
-# CURRENT POC VERDICT
-
-```text
-S0.PA BUILD / BROWSER / ADAPTIVE FOUNDATION = POC_VALIDATED on PR #5 head
-EXTERNAL PROVIDER DEPLOYMENT                = HOLD -> S6.PC
-FULL OFFLINE/UPDATE LIFECYCLE               = future hardening lane
-```
+- **Status:** IN-PROGRESS.
+- **Actor:** DPF/Forge stateless renter.
+- **Master issue:** #3.
+- **Sprint objective:** make repository continuity durable enough that a fresh renter can enter without chat history and cannot silently bypass the sprint/receipt contract.
+- **PR-run objective:** harden the already-persisted `AGENTS.md` + `EXECUTION_PROTOCOL.md` into a machine-checkable governance entry/gate; remove stale README status that pretends a fixed PR is always next.
+- **Base branch:** `main`.
+- **Exact product/governance base before this PRE-SEED commit:** `75e5750800a51db7a1bb923fb3e6e69cf5331c9f`.
+- **Intended branch:** `sprint-00/run-b-governance-hardening`.
+- **Predecessor receipts:** S0.PA completed Issue #1; PR #5 merge `ba604bbd57750ace35b855adea2b6c1d58d8db85`; exact-head APWA CI `32679745334`.
+- **Scope IN:**
+  1. update `README.md` so active work always routes renters to Issue #3 + root `NOW.md` rather than hard-coded stale PR status;
+  2. add a canonical pull-request template requiring Master/Sprint/Run/PRE-SEED/scope-IN/scope-OUT/acceptance/validation/exact-head/POC-FOC/POST-SEED fields;
+  3. add a dependency-free governance validator that checks required root governance surfaces and critical continuity markers;
+  4. add deterministic tests for the validator, including malformed-state rejection;
+  5. run the governance validator in CI before/alongside the APWA build/browser proof.
+- **Scope OUT:** visual-system tokens, logo/spatial redesign, Knowledge Stream design, lesson/video model, community/opportunity implementation, Sprint 1 Three.js work, provider deployment.
+- **Governing invariants:** root NOW is temporal authority; stale/contradictory state must HOLD; a green build cannot compensate for missing governance receipts; governance checks must remain dependency-light and inspectable.
+- **Known blockers / uncertainty:** GitHub branch protection is currently not proven/enforced; this run may validate repository contracts but must not claim server-side branch protection unless actually configured and witnessed.
+- **Planned validation:** run validator against current repository; run negative fixture/tests that prove missing required markers fail; run exact-head GitHub Actions; inspect changed files and PR body against the new contract.
+- **HOLD / rollback condition:** validator is cosmetic/self-fulfilling, tests cannot reject malformed governance, CI does not execute the gate, or the run crosses into S0.PC/product redesign.
+- **Next admissible action:** branch from this PRE-SEED state, implement only S0.PB governance hardening, open a bounded S0.PB PR, validate, POST-SEED before merge.
 
 ---
 
