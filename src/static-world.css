@@ -30,4 +30,20 @@
     width: 118vw;
     transform: translateX(12vw) rotate(-4deg);
   }
+
+  /* Lite mode already exposes the active lane in the thumb dock. The
+     floating world caption becomes redundant on short mobile viewports and
+     can collide with the hero copy, so remove that duplicate information. */
+  [data-tier='lite'] .world-caption {
+    display: none;
+  }
+
+  [data-tier='lite'] .hero-copy {
+    bottom: 116px;
+  }
+
+  [data-tier='lite'] .hero h1 {
+    font-size: clamp(3rem, 14vw, 4.65rem);
+    max-width: 7.5ch;
+  }
 }
