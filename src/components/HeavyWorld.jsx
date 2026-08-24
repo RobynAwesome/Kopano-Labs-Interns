@@ -1,7 +1,18 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { worldLanes } from '../data/lanes.js'
+import {
+  networkDistricts,
+  networkNodes,
+  networkRoutes,
+} from '../spatial/network-model.js'
+import {
+  KopanoBeacon,
+  KopanoDistrict,
+  KopanoGrowthMark,
+  KopanoNode,
+  KopanoRoute,
+} from './spatial/KopanoPrimitives.jsx'
 
 const qualityByTier = {
   full: { dpr: [1, 1.75], particles: 180, shadows: true },
@@ -32,73 +43,6 @@ function WorldRig({ profile, children }) {
   })
 
   return <group ref={group}>{children}</group>
-}
-
-function KnowledgeBeacon({ lane, index, activeLane, profile }) {
-  const group = useRef()
-  const halo = useRef()
-  const active = lane.id === activeLane
-
-  useFrame((state) => {
-    if (!group.current) return
-
-    const elapsed = state.clock.getElapsedTime()
-    const reveal = profile.reducedMotion
-      ? 1
-      : THREE.MathUtils.clamp((elapsed - index * 0.22) / 1.15, 0.08, 1)
-    const targetScale = active ? 1.13 : 1
-
-    group.current.scale.y = THREE.MathUtils.lerp(group.current.scale.y, reveal * targetScale, 0.08)
-    group.current.scale.x = THREE.MathUtils.lerp(group.current.scale.x, targetScale, 0.08)
-    group.current.scale.z = THREE.MathUtils.lerp(group.current.scale.z, targetScale, 0.08)
-
-    if (!profile.reducedMotion) {
-      group.current.position.y = Math.sin(elapsed * 0.7 + index) * 0.045
-      if (halo.current) halo.current.rotation.z = elapsed * (active ? 0.7 : 0.28) + index
-    }
-  })
-
-  return (
-    <group ref={group} position={lane.position} scale={[1, 0.08, 1]}>
-      <mesh castShadow={profile.tier === 'full'} position={[0, 1.05, 0]}>
-        <cylinderGeometry args={[0.28, 0.56, 2.1, profile.tier === 'lite' ? 8 : 16]} />
-        <meshStandardMaterial
-          color={lane.tone}
-          roughness={0.48}
-          metalness={0.08}
-          emissive={lane.tone}
-          emissiveIntensity={active ? 0.22 : 0.04}
-        />
-      </mesh>
-
-      <mesh position={[0, 2.26, 0]}>
-        <sphereGeometry args={[active ? 0.27 : 0.21, profile.tier === 'lite' ? 10 : 18, profile.tier === 'lite' ? 8 : 14]} />
-        <meshStandardMaterial
-          color="#f7fff9"
-          emissive={lane.tone}
-          emissiveIntensity={active ? 1.6 : 0.75}
-        />
-      </mesh>
-
-      <mesh ref={halo} position={[0, 2.26, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[active ? 0.52 : 0.4, 0.018, 6, profile.tier === 'lite' ? 18 : 42]} />
-        <meshBasicMaterial color={lane.tone} transparent opacity={active ? 0.95 : 0.36} />
-      </mesh>
-    </group>
-  )
-}
-
-function PathNetwork() {
-  const geometry = useMemo(() => {
-    const points = worldLanes.map((lane) => new THREE.Vector3(lane.position[0], 0.06, lane.position[2]))
-    return new THREE.BufferGeometry().setFromPoints(points)
-  }, [])
-
-  return (
-    <line geometry={geometry}>
-      <lineBasicMaterial color="#9de2c2" transparent opacity={0.28} />
-    </line>
-  )
 }
 
 function Atmosphere({ count, reducedMotion }) {
@@ -156,16 +100,42 @@ function WorldScene({ activeLane, profile, quality }) {
           <meshBasicMaterial color="#2b6d51" transparent opacity={0.42} />
         </mesh>
 
-        <PathNetwork />
-        {worldLanes.map((lane, index) => (
-          <KnowledgeBeacon
-            key={lane.id}
-            lane={lane}
+        {networkDistricts.map((district) => (
+          <KopanoDistrict
+            key={district.id}
+            district={district}
+            active={district.nodeId === activeLane}
+          />
+        ))}
+
+        {networkRoutes.map((route) => (
+          <KopanoRoute key={route.id} route={route} activeLane={activeLane} />
+        ))}
+
+        {networkRoutes.map((route) => (
+          <KopanoGrowthMark key={`${route.id}-growth`} route={route} activeLane={activeLane} />
+        ))}
+
+        {networkNodes.map((node, index) => (
+          <KopanoNode
+            key={node.id}
+            node={node}
             index={index}
-            activeLane={activeLane}
+            active={node.id === activeLane}
             profile={profile}
           />
         ))}
+
+        {networkNodes.map((node, index) => (
+          <KopanoBeacon
+            key={`${node.id}-beacon`}
+            node={node}
+            index={index}
+            active={node.id === activeLane}
+            reducedMotion={profile.reducedMotion}
+          />
+        ))}
+
         <Atmosphere count={quality.particles} reducedMotion={profile.reducedMotion} />
       </WorldRig>
     </>
@@ -176,7 +146,7 @@ export default function HeavyWorld({ activeLane, profile }) {
   const quality = qualityByTier[profile.tier] || qualityByTier.balanced
 
   return (
-    <div className="world-canvas" aria-hidden="true">
+    <div className="world-canvas" aria-hidden="true" data-spatial-renderer="webgl">
       <Canvas
         camera={{ position: [0, 4.4, 9.4], fov: 42, near: 0.1, far: 40 }}
         dpr={quality.dpr}

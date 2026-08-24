@@ -11,7 +11,8 @@
     "test:governance": "node --test tests/governance-validator.test.mjs",
     "visual:check": "node scripts/validate-visual-system.mjs",
     "test:visual-system": "node --test tests/visual-system-contract.test.mjs",
-    "validate": "npm run governance:check && npm run test:governance && npm run visual:check && npm run test:visual-system"
+    "test:spatial-model": "node --test tests/spatial-model.test.mjs",
+    "validate": "npm run governance:check && npm run test:governance && npm run visual:check && npm run test:visual-system && npm run test:spatial-model"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
