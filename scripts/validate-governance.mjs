@@ -1,22 +1,23 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
+import { fileURLToPath } from 'node:url'
 
 const STATELESS = 'I_AM_STATELESS_RENTER_NOT_LANDLORD'
+
+export const GOVERNANCE_FILES = [
+  'README.md',
+  'NOW.md',
+  'AGENTS.md',
+  'governance/EXECUTION_PROTOCOL.md',
+  '.github/PULL_REQUEST_TEMPLATE.md',
+]
 
 const FILE_CONTRACTS = [
   {
     file: 'README.md',
-    required: [
-      '# Kopano Labs Learning Network',
-      'Issue #3',
-      'NOW.md',
-      STATELESS,
-    ],
-    forbidden: [
-      'PR1 is the next active implementation slice',
-      'PR2 learning/video model       NEXT',
-    ],
+    required: ['# Kopano Labs Learning Network', 'Issue #3', 'NOW.md', STATELESS],
+    forbidden: ['PR1 is the next active implementation slice', 'PR2 learning/video model       NEXT'],
   },
   {
     file: 'NOW.md',
@@ -80,11 +81,9 @@ function readText(root, relativePath) {
   if (!fs.existsSync(absolutePath)) {
     return { error: `missing required governance file: ${relativePath}` }
   }
-
   if (!fs.statSync(absolutePath).isFile()) {
     return { error: `governance path is not a file: ${relativePath}` }
   }
-
   return { text: fs.readFileSync(absolutePath, 'utf8') }
 }
 
@@ -174,7 +173,9 @@ function main() {
   console.log('Governance validation passed.')
 }
 
-const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)
+const invokedDirectly = process.argv[1]
+  && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))
+
 if (invokedDirectly) {
   main()
 }
