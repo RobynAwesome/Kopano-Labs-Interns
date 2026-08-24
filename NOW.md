@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-24T03:18:23+02:00 (SAST)
+> **Updated:** 2026-08-24T03:19:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -58,7 +58,7 @@ Every stateless renter must:
 
 | Run | State | Canonical truth |
 |---|---|---|
-| **S0.PA — existing APWA foundation reconciliation** | **ACTIVE / POST-MERGE VALIDATION HOLD** | PR #2 merged, exact-head production build is proven, but deployed browser/mobile visual proof is still absent. Issue #1 is reopened so merge state is not confused with POC validation. |
+| **S0.PA — existing APWA foundation reconciliation** | **ACTIVE / BROWSER-PROOF REPAIR** | PR #2 merged, exact-head production build is proven, but deployed browser/mobile visual proof is absent. Issue #1 is reopened. A bounded S0.PA validation-repair branch is now admitted. |
 | **S0.PB — renter/sprint governance hardening** | **BLOCKED BY S0.PA** | Bootstrap governance exists on main, but no new S0.PB material work is admitted until S0.PA resolves or records an explicit named HOLD transfer. |
 | **S0.PC — visual system truth lock** | **QUEUED** | Do not begin until predecessor receipt law permits it. |
 
@@ -141,9 +141,26 @@ POC_IMPLEMENTED_BUILD_VALIDATED_VISUAL_DEPLOYMENT_HOLD
 
 This is **not** `POC_VALIDATED` for S0.PA.
 
-### Next admissible action
+---
 
-Stay inside **S0.PA**. Establish deterministic browser/mobile/reduced-motion runtime evidence from the merged build and obtain a real deployed preview ownership/URL receipt. If provider deployment cannot be established with available authority/tools, record a named external-deployment HOLD rather than beginning S0.PB or Sprint 1.
+## 2026-08-24T03:19:00+02:00 — PRE-SEED — SPRINT 0 / RUN A VALIDATION REPAIR
+
+- **Status:** IN-PROGRESS.
+- **Actor:** DPF/Forge stateless renter.
+- **Master issue:** #3.
+- **Issue:** #1 reopened.
+- **Sprint objective:** finish S0.PA proof without starting S0.PB/S0.PC/Sprint 1.
+- **PR-run objective:** add deterministic browser/runtime proof around the already-merged APWA; no new product feature scope.
+- **Base branch + exact base SHA:** `main` @ `210d9ba5d8667236054f7f9817cb504717e14c08` (post-merge NOW reconciliation commit).
+- **Intended branch:** `sprint-00/run-a-runtime-browser-proof`.
+- **Predecessor receipts:** PR #2 merge `845278fdb61202bc1940270514c714c7c7d7883d`; APWA CI `32679218773`; artifact `9503619737`.
+- **Scope IN:** CI-hosted Vite preview; desktop/mobile browser render; reduced-motion/lite render; manifest/service-worker reachability; screenshot/DOM/log artifact receipts; exact-head validation.
+- **Scope OUT:** product redesign, lesson/video wiring, Sprint 1 Three.js features, S0.PB governance expansion, S0.PC visual-token work, provider claims.
+- **Governing invariants:** proof levels remain separate; lite/Save-Data must not require heavy Three.js; mobile rearranges; reduced motion must be honored; no fake deployed-preview receipt.
+- **Known blockers / uncertainty:** there is no witnessed Vercel project linked to this repository; CI-hosted browser proof can prove runtime/layout but cannot by itself prove durable provider deployment ownership.
+- **Planned validation:** build; launch `vite preview`; curl root/manifest/service worker; render Chromium desktop/mobile; render Chromium with reduced-motion forced and assert the UI reports `lite`; upload screenshots, rendered DOM, server log, and receipt metadata.
+- **HOLD / rollback condition:** any browser crash, missing Chromium capability, failed DOM assertion, service-worker/manifest miss, or unresolved visual/runtime error remains HOLD. External provider deployment remains a separate HOLD until witnessed.
+- **Next admissible action:** create the bounded validation-repair branch and CI proof change only.
 
 ---
 
