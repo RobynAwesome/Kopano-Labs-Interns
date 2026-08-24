@@ -26,3 +26,13 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
+
+      - name: Export validation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: s0-pa-validation
+          path: |
+            dist
+            package-lock.json
+          if-no-files-found: error
+          retention-days: 7

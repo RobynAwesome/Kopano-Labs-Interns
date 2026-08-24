@@ -1,0 +1,75 @@
+export const worldLanes = [
+  {
+    id: 'learn',
+    index: '01',
+    label: 'Learn',
+    title: 'Knowledge you can use today',
+    description: 'Short lessons, workshops, videos and guided pathways that turn unfamiliar technology into usable capability.',
+    proof: 'Public learning core · no login required',
+    position: [-3.4, 0, 0.8],
+    tone: '#ffce32',
+  },
+  {
+    id: 'build',
+    index: '02',
+    label: 'Build',
+    title: 'Turn learning into evidence',
+    description: 'Labs, projects, challenges and apprenticeship tasks where knowledge becomes something you can demonstrate.',
+    proof: 'POC receipts before claims',
+    position: [-1.1, 0, -1.6],
+    tone: '#ff6b6b',
+  },
+  {
+    id: 'community',
+    index: '03',
+    label: 'Community',
+    title: 'Learn with people, not alone',
+    description: 'Student groups, developer communities, workshops and events that create durable local learning networks.',
+    proof: 'Community activity must carry evidence',
+    position: [1.6, 0, -0.8],
+    tone: '#7dd3fc',
+  },
+  {
+    id: 'opportunity',
+    index: '04',
+    label: 'Opportunity',
+    title: 'Use capability to move forward',
+    description: 'Internships, projects, partner pathways and governed access to hardware or programmes when eligibility is proven.',
+    proof: 'No guaranteed access without a receipt',
+    position: [3.7, 0, 1.25],
+    tone: '#a7f3d0',
+  },
+]
+
+export const ecosystemLanes = [
+  {
+    name: 'Microsoft Student Community',
+    role: 'Student reach + practical learning',
+    detail: 'Use verified student-ambassador activity to bring learners into structured technology education and track real participation rather than vanity reach.',
+    status: 'community lane',
+  },
+  {
+    name: 'GDG',
+    role: 'Local developer community',
+    detail: 'Build a durable developer group around workshops, demos, peer learning and projects that continue after a single event ends.',
+    status: 'community lane',
+  },
+  {
+    name: 'AWS Builders',
+    role: 'Cloud + builder practice',
+    detail: 'Publish builder sessions, practical cloud learning and event pathways with proof of what was taught and built.',
+    status: 'learning lane',
+  },
+  {
+    name: 'OpenAI Academy',
+    role: 'AI literacy + applied learning',
+    detail: 'Translate available AI learning into accessible local sessions, experiments and projects without presenting third-party material as Kopano Labs-owned curriculum.',
+    status: 'learning lane',
+  },
+  {
+    name: 'AMD AI',
+    role: 'AI compute + hardware access',
+    detail: 'Surface governed learning and hardware-access pathways where actual programme eligibility, availability and partner evidence are explicit.',
+    status: 'opportunity lane',
+  },
+]

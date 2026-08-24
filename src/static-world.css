@@ -1,0 +1,33 @@
+.static-world {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 70% 48%, rgba(28, 74, 53, 0.34), transparent 36%),
+    #08130f;
+}
+
+.static-world svg {
+  width: min(78vw, 920px);
+  height: auto;
+  filter: drop-shadow(0 22px 70px rgba(0, 0, 0, 0.35));
+}
+
+[data-tier='lite'] .static-world svg {
+  width: min(92vw, 760px);
+}
+
+@media (max-width: 700px) {
+  .static-world {
+    align-items: start;
+    padding-top: 12vh;
+  }
+
+  .static-world svg {
+    width: 118vw;
+    transform: translateX(12vw) rotate(-4deg);
+  }
+}

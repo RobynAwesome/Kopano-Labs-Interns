@@ -1,0 +1,20 @@
+{
+  "name": "Kopano Labs Learning Network",
+  "short_name": "Kopano Learn",
+  "description": "Learn, build, join community and move into governed technology opportunities.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#08130f",
+  "theme_color": "#08130f",
+  "categories": ["education", "productivity", "developer"],
+  "icons": [
+    {
+      "src": "/kopano-learning-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
