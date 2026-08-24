@@ -33,6 +33,12 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: node scripts/validate-governance.mjs --pr-env
 
+      - name: Validate visual system contract
+        run: node scripts/validate-visual-system.mjs
+
+      - name: Prove malformed visual systems are rejected
+        run: node --test tests/visual-system-contract.test.mjs
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
@@ -167,13 +173,15 @@ jobs:
         shell: bash
         run: |
           {
-            echo "schema=s0_pb_governed_apwa_proof_v1"
+            echo "schema=s0_pc_visual_truth_lock_v1"
             echo "head_sha=${{ github.event.pull_request.head.sha }}"
             echo "merge_test_sha=${{ github.sha }}"
             echo "run_id=${{ github.run_id }}"
             echo "governance_repository=pass"
             echo "governance_negative_tests=pass"
             echo "governance_pr_contract=pass"
+            echo "visual_system_contract=pass"
+            echo "visual_system_negative_tests=pass"
             echo "desktop=pass"
             echo "mobile=pass"
             echo "reduced_motion_lite=pass"
@@ -187,10 +195,11 @@ jobs:
         uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: s0-pb-governed-apwa-proof-${{ github.event.pull_request.head.sha }}
+          name: s0-pc-visual-truth-proof-${{ github.event.pull_request.head.sha }}
           path: |
             proof
             dist
             package-lock.json
+            governance/visual-system
           if-no-files-found: error
           retention-days: 14

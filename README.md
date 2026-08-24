@@ -28,6 +28,16 @@ Current ecosystem lanes include Microsoft student/community activity, GDG commun
 - POC receipts before claims;
 - KPGS governance and `NOW.md` continuity before autonomous work.
 
+## Visual-system authority
+
+Future visual implementation is governed by:
+
+- `governance/visual-system/README.md` — human-readable visual/product grammar;
+- `governance/visual-system/visual-system.contract.json` — machine-readable truth lock;
+- `npm run visual:check` and `npm run test:visual-system` — deterministic contract validation.
+
+Visual attractiveness does not override those contracts. In particular, lane identity colour and system status are distinct semantic layers; system status takes precedence and must retain a non-colour cue.
+
 ## Three.js implementation rule
 
 `RobynAwesome/towers` is a design/interaction reference only. Its repository does not grant reuse or redistribution of its code/artwork. This project independently implements the useful principles: spatial composition, evolving scene state, camera response, progressive reveal, environmental depth and phone-specific rearrangement. Do not copy Towers source or assets.
