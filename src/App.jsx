@@ -1,47 +1,19 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import StaticNetwork from './components/StaticNetwork.jsx'
 import { ecosystemLanes, worldLanes } from './data/lanes.js'
 import { useAdaptiveProfile } from './lib/adaptive.js'
 
 const AdaptiveWorld = lazy(() => import('./components/AdaptiveWorld.jsx'))
 
-function StaticWorld({ activeLane }) {
-  return (
-    <div className="static-world" aria-hidden="true">
-      <svg viewBox="-5 -3 10 6" role="presentation">
-        <defs>
-          <radialGradient id="networkGlow">
-            <stop offset="0" stopColor="#1c4a35" stopOpacity="0.85" />
-            <stop offset="1" stopColor="#08130f" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <circle cx="0" cy="0" r="4.8" fill="url(#networkGlow)" />
-        <path d="M-3.4 -.8 L-1.1 1.6 L1.6 .8 L3.7 -1.25" fill="none" stroke="#9de2c2" strokeOpacity=".28" strokeWidth=".05" />
-        {worldLanes.map((lane) => {
-          const active = lane.id === activeLane
-          const x = lane.position[0]
-          const y = -lane.position[2]
-          return (
-            <g key={lane.id} transform={`translate(${x} ${y})`}>
-              <circle r={active ? '.62' : '.46'} fill={lane.tone} fillOpacity={active ? '.18' : '.08'} />
-              <circle r={active ? '.26' : '.2'} fill={lane.tone} />
-              <circle r={active ? '.48' : '.37'} fill="none" stroke={lane.tone} strokeOpacity={active ? '.95' : '.36'} strokeWidth=".04" />
-            </g>
-          )
-        })}
-      </svg>
-    </div>
-  )
-}
-
 function WorldSurface({ activeLane, profile }) {
   const useSpatialRenderer = profile.tier !== 'lite' && !profile.saveData
 
   if (!useSpatialRenderer) {
-    return <StaticWorld activeLane={activeLane} />
+    return <StaticNetwork activeLane={activeLane} />
   }
 
   return (
-    <Suspense fallback={<StaticWorld activeLane={activeLane} />}>
+    <Suspense fallback={<StaticNetwork activeLane={activeLane} />}>
       <AdaptiveWorld activeLane={activeLane} profile={profile} />
     </Suspense>
   )
