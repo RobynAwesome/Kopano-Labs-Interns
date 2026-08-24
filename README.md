@@ -32,20 +32,39 @@ Current ecosystem lanes include Microsoft student/community activity, GDG commun
 
 `RobynAwesome/towers` is a design/interaction reference only. Its repository does not grant reuse or redistribution of its code/artwork. This project independently implements the useful principles: spatial composition, evolving scene state, camera response, progressive reveal, environmental depth and phone-specific rearrangement. Do not copy Towers source or assets.
 
-## Build sequence
+## Canonical execution routing
+
+README records durable product purpose. **It does not declare the active implementation slice.**
+
+Every stateless renter or agent entering this repository must recover live execution state in this order:
 
 ```text
-PR0  Repository + product truth lock
-PR1  Runnable APWA foundation + adaptive Three.js learning world
-PR2  Learning/video data model + public lesson surfaces
-PR3  Community/event lanes (GDG / AWS / Microsoft / Academy)
-PR4  Build labs + proof receipts + project progression
-PR5  Opportunity/hardware access + governed applications
-PRx  Adapt from measured user behaviour and evidence
+Issue #3 — canonical 7-Sprint × 3-Run program
+-> repository-root NOW.md — current temporal state
+-> AGENTS.md — renter entry contract
+-> governance/EXECUTION_PROTOCOL.md — execution + validation law
+-> exact open Issue / PR / CI receipts
 ```
 
-## Status
+Do not infer the next PR, Sprint, or Run from historical README prose, prior chat, model memory, or branch names. If those disagree with root `NOW.md`, apply `HOLD_AND_RECONCILE` before material work.
 
-Repository initialized 2026-08-24 SAST. PR1 is the next active implementation slice.
+The master program is **Issue #3**. The currently admitted Sprint + Run is always stated in repository-root **`NOW.md`**.
+
+## Capability graduation
+
+```text
+Contract
+-> Implementation
+-> Test
+-> Receipt
+-> POC
+-> Reusable Primitive
+```
+
+A merged PR, passing build, or persuasive description is not sufficient on its own to promote a capability beyond the proof actually observed.
+
+## Current-state rule
+
+For current execution status, read **Issue #3 + root `NOW.md`**. README intentionally does not hard-code a “next PR” so it cannot become a stale router.
 
 `I_AM_STATELESS_RENTER_NOT_LANDLORD`
