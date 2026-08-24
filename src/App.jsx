@@ -1,7 +1,51 @@
-import { useEffect, useMemo, useState } from 'react'
-import AdaptiveWorld from './components/AdaptiveWorld.jsx'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { ecosystemLanes, worldLanes } from './data/lanes.js'
 import { useAdaptiveProfile } from './lib/adaptive.js'
+
+const AdaptiveWorld = lazy(() => import('./components/AdaptiveWorld.jsx'))
+
+function StaticWorld({ activeLane }) {
+  return (
+    <div className="static-world" aria-hidden="true">
+      <svg viewBox="-5 -3 10 6" role="presentation">
+        <defs>
+          <radialGradient id="networkGlow">
+            <stop offset="0" stopColor="#1c4a35" stopOpacity="0.85" />
+            <stop offset="1" stopColor="#08130f" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <circle cx="0" cy="0" r="4.8" fill="url(#networkGlow)" />
+        <path d="M-3.4 -.8 L-1.1 1.6 L1.6 .8 L3.7 -1.25" fill="none" stroke="#9de2c2" strokeOpacity=".28" strokeWidth=".05" />
+        {worldLanes.map((lane) => {
+          const active = lane.id === activeLane
+          const x = lane.position[0]
+          const y = -lane.position[2]
+          return (
+            <g key={lane.id} transform={`translate(${x} ${y})`}>
+              <circle r={active ? '.62' : '.46'} fill={lane.tone} fillOpacity={active ? '.18' : '.08'} />
+              <circle r={active ? '.26' : '.2'} fill={lane.tone} />
+              <circle r={active ? '.48' : '.37'} fill="none" stroke={lane.tone} strokeOpacity={active ? '.95' : '.36'} strokeWidth=".04" />
+            </g>
+          )
+        })}
+      </svg>
+    </div>
+  )
+}
+
+function WorldSurface({ activeLane, profile }) {
+  const useSpatialRenderer = profile.tier !== 'lite' && !profile.saveData
+
+  if (!useSpatialRenderer) {
+    return <StaticWorld activeLane={activeLane} />
+  }
+
+  return (
+    <Suspense fallback={<StaticWorld activeLane={activeLane} />}>
+      <AdaptiveWorld activeLane={activeLane} profile={profile} />
+    </Suspense>
+  )
+}
 
 function useInstallPrompt() {
   const [prompt, setPrompt] = useState(null)
@@ -94,7 +138,7 @@ export default function App() {
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
-          <AdaptiveWorld activeLane={activeLane} profile={profile} />
+          <WorldSurface activeLane={activeLane} profile={profile} />
           <div className="hero-vignette" />
 
           <div className="hero-copy">
@@ -120,12 +164,7 @@ export default function App() {
 
           <nav className="lane-switcher" aria-label="Learning world">
             {worldLanes.map((lane) => (
-              <LaneButton
-                key={lane.id}
-                lane={lane}
-                active={lane.id === activeLane}
-                onSelect={setActiveLane}
-              />
+              <LaneButton key={lane.id} lane={lane} active={lane.id === activeLane} onSelect={setActiveLane} />
             ))}
           </nav>
         </section>
@@ -170,9 +209,7 @@ export default function App() {
 
         <section className="watch section-shell" id="watch">
           <div className="video-stage">
-            <div className="video-orbit" aria-hidden="true">
-              <span>PLAY</span>
-            </div>
+            <div className="video-orbit" aria-hidden="true"><span>PLAY</span></div>
             <div className="video-copy">
               <span className="eyebrow">YouTube + workshop library</span>
               <h2>Watch. Try. Return with proof.</h2>
@@ -215,10 +252,7 @@ export default function App() {
                 AI CPUs and GPUs are useful only when people know what they are trying to build. This platform will pair
                 eligible hardware pathways with prerequisite learning, project intent and auditable access receipts.
               </p>
-              <div className="receipt-line">
-                <span>Access state</span>
-                <strong>Evidence required</strong>
-              </div>
+              <div className="receipt-line"><span>Access state</span><strong>Evidence required</strong></div>
             </div>
           </div>
         </section>
@@ -240,22 +274,13 @@ export default function App() {
       </main>
 
       <footer>
-        <div>
-          <strong>Kopano Labs Learning Network</strong>
-          <p>Learn → Build → Community → Opportunity</p>
-        </div>
+        <div><strong>Kopano Labs Learning Network</strong><p>Learn → Build → Community → Opportunity</p></div>
         <p className="footer-note">Partner/community names identify learning lanes only. Evidence governs every affiliation claim.</p>
       </footer>
 
       <nav className="thumb-dock" aria-label="Mobile learning world">
         {worldLanes.map((lane) => (
-          <LaneButton
-            compact
-            key={lane.id}
-            lane={lane}
-            active={lane.id === activeLane}
-            onSelect={setActiveLane}
-          />
+          <LaneButton compact key={lane.id} lane={lane} active={lane.id === activeLane} onSelect={setActiveLane} />
         ))}
       </nav>
     </div>
