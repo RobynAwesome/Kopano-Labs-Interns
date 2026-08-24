@@ -27,12 +27,91 @@ jobs:
       - name: Build production bundle
         run: npm run build
 
+      - name: Prepare deterministic runtime fixtures
+        run: |
+          rm -rf validation dist-full dist-lite
+          mkdir -p validation
+          cp -R dist dist-full
+          cp -R dist dist-lite
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def inject(directory: str, memory: int, cores: int) -> None:
+              path = Path(directory) / "index.html"
+              html = path.read_text(encoding="utf-8")
+              script = (
+                  "<script>"
+                  f"Object.defineProperty(Navigator.prototype,'deviceMemory',{{configurable:true,get:()=>{memory}}});"
+                  f"Object.defineProperty(Navigator.prototype,'hardwareConcurrency',{{configurable:true,get:()=>{cores}}});"
+                  "</script>"
+              )
+              html = html.replace('<script type="module"', script + '\n    <script type="module"', 1)
+              path.write_text(html, encoding="utf-8")
+
+          inject("dist-full", 8, 8)
+          inject("dist-lite", 2, 2)
+          PY
+
+      - name: Desktop full-tier runtime proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME"
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory dist-full >validation/desktop-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..40}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 0.25
+          done
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --hide-scrollbars --ignore-gpu-blocklist --enable-webgl --window-size=1440,1000 --virtual-time-budget=3000 --screenshot=validation/desktop-full.png http://127.0.0.1:4173/ >validation/desktop-chrome.log 2>&1
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --ignore-gpu-blocklist --enable-webgl --virtual-time-budget=3000 --dump-dom http://127.0.0.1:4173/ >validation/desktop-full.html 2>>validation/desktop-chrome.log
+          python3 - <<'PY'
+          from pathlib import Path
+          dom = Path('validation/desktop-full.html').read_text(encoding='utf-8')
+          assert 'Kopano Labs' in dom, 'desktop app did not render'
+          assert '>full<' in dom or '> full <' in dom or 'full' in dom, 'full tier was not selected'
+          assert '<canvas' in dom, 'full-tier Three.js canvas was not created'
+          assert Path('validation/desktop-full.png').stat().st_size > 10_000, 'desktop screenshot is unexpectedly small'
+          PY
+          kill "$SERVER_PID" 2>/dev/null || true
+          trap - EXIT
+
+      - name: Mobile lite-tier runtime proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME"
+          python3 -m http.server 4174 --bind 127.0.0.1 --directory dist-lite >validation/mobile-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..40}; do
+            if curl -fsS http://127.0.0.1:4174/ >/dev/null; then break; fi
+            sleep 0.25
+          done
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --hide-scrollbars --window-size=390,844 --virtual-time-budget=2500 --screenshot=validation/mobile-lite.png http://127.0.0.1:4174/ >validation/mobile-chrome.log 2>&1
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu --virtual-time-budget=2500 --dump-dom http://127.0.0.1:4174/ >validation/mobile-lite.html 2>>validation/mobile-chrome.log
+          python3 - <<'PY'
+          from pathlib import Path
+          dom = Path('validation/mobile-lite.html').read_text(encoding='utf-8')
+          assert 'Kopano Labs' in dom, 'mobile app did not render'
+          assert 'static-world' in dom, 'lite static world was not selected'
+          assert '<canvas' not in dom, 'lite path unexpectedly created a Three.js canvas'
+          assert 'thumb-dock' in dom, 'mobile thumb navigation did not render'
+          assert Path('validation/mobile-lite.png').stat().st_size > 10_000, 'mobile screenshot is unexpectedly small'
+          PY
+          kill "$SERVER_PID" 2>/dev/null || true
+          trap - EXIT
+
       - name: Export validation artifact
         uses: actions/upload-artifact@v4
         with:
           name: s0-pa-validation
           path: |
             dist
+            validation
             package-lock.json
           if-no-files-found: error
           retention-days: 7
