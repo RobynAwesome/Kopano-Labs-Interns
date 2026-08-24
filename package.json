@@ -8,7 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "governance:check": "node scripts/validate-governance.mjs",
-    "test:governance": "node --test tests/governance-validator.test.mjs"
+    "test:governance": "node --test tests/governance-validator.test.mjs",
+    "visual:check": "node scripts/validate-visual-system.mjs",
+    "test:visual-system": "node --test tests/visual-system-contract.test.mjs",
+    "validate": "npm run governance:check && npm run test:governance && npm run visual:check && npm run test:visual-system"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
