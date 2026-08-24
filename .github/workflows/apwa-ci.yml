@@ -39,6 +39,9 @@ jobs:
       - name: Prove malformed visual systems are rejected
         run: node --test tests/visual-system-contract.test.mjs
 
+      - name: Validate spatial model semantics
+        run: node --test tests/spatial-model.test.mjs
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
@@ -106,6 +109,7 @@ jobs:
 
           grep -q 'Learn enough to move.' proof/desktop.html
           grep -q 'Learning Network' proof/desktop.html
+          grep -q 'data-spatial-renderer="webgl"' proof/desktop.html
           test -s proof/desktop.png
 
       - name: Receipt mobile browser runtime
@@ -162,7 +166,9 @@ jobs:
             http://127.0.0.1:4173/ > proof/mobile-lite.html
 
           grep -q '>lite</span>' proof/mobile-lite.html
-          grep -q 'static-world' proof/mobile-lite.html
+          grep -q 'data-spatial-renderer="static"' proof/mobile-lite.html
+          grep -q 'data-spatial-node="learn"' proof/mobile-lite.html
+          grep -q 'data-spatial-node="opportunity"' proof/mobile-lite.html
           if grep -q 'HeavyWorld-' proof/lite-netlog.json; then
             echo 'FOC: lite/reduced-motion path requested the heavy Three.js chunk' >&2
             exit 1
@@ -173,7 +179,7 @@ jobs:
         shell: bash
         run: |
           {
-            echo "schema=s0_pc_visual_truth_lock_v1"
+            echo "schema=s1_pa_spatial_identity_primitives_v1"
             echo "head_sha=${{ github.event.pull_request.head.sha }}"
             echo "merge_test_sha=${{ github.sha }}"
             echo "run_id=${{ github.run_id }}"
@@ -182,6 +188,9 @@ jobs:
             echo "governance_pr_contract=pass"
             echo "visual_system_contract=pass"
             echo "visual_system_negative_tests=pass"
+            echo "spatial_model_tests=pass"
+            echo "webgl_spatial_renderer=pass"
+            echo "static_spatial_renderer=pass"
             echo "desktop=pass"
             echo "mobile=pass"
             echo "reduced_motion_lite=pass"
@@ -195,11 +204,12 @@ jobs:
         uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: s0-pc-visual-truth-proof-${{ github.event.pull_request.head.sha }}
+          name: s1-pa-spatial-primitives-proof-${{ github.event.pull_request.head.sha }}
           path: |
             proof
             dist
             package-lock.json
             governance/visual-system
+            src/spatial
           if-no-files-found: error
           retention-days: 14
