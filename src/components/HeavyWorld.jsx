@@ -6,6 +6,7 @@ import {
   networkNodes,
   networkRoutes,
 } from '../spatial/network-model.js'
+import { cameraTargetForLane } from '../spatial/navigation.js'
 import {
   KopanoBeacon,
   KopanoDistrict,
@@ -20,26 +21,48 @@ const qualityByTier = {
   lite: { dpr: 1, particles: 18, shadows: false },
 }
 
-function WorldRig({ profile, children }) {
+function WorldRig({ profile, activeLane, children }) {
   const group = useRef()
+  const target = useMemo(() => cameraTargetForLane(activeLane), [activeLane])
+  const targetLook = useMemo(() => new THREE.Vector3(...target.lookAt), [target])
+  const currentLook = useRef(new THREE.Vector3(0, 0.75, 0))
 
   useFrame((state) => {
-    if (!group.current || profile.reducedMotion) return
+    if (!group.current) return
+
+    const pointerX = profile.reducedMotion ? 0 : state.pointer.x
+    const pointerY = profile.reducedMotion ? 0 : state.pointer.y
+    const alpha = profile.reducedMotion ? 1 : 0.045
 
     group.current.rotation.y = THREE.MathUtils.lerp(
       group.current.rotation.y,
-      state.pointer.x * 0.12,
-      0.045,
+      pointerX * 0.08,
+      alpha,
     )
     group.current.rotation.x = THREE.MathUtils.lerp(
       group.current.rotation.x,
-      -state.pointer.y * 0.035,
-      0.045,
+      -pointerY * 0.025,
+      alpha,
     )
 
-    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, state.pointer.x * 0.7, 0.025)
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, 4.4 + state.pointer.y * 0.22, 0.025)
-    state.camera.lookAt(0, 0.75, 0)
+    state.camera.position.x = THREE.MathUtils.lerp(
+      state.camera.position.x,
+      target.position[0] + pointerX * 0.42,
+      alpha,
+    )
+    state.camera.position.y = THREE.MathUtils.lerp(
+      state.camera.position.y,
+      target.position[1] + pointerY * 0.16,
+      alpha,
+    )
+    state.camera.position.z = THREE.MathUtils.lerp(
+      state.camera.position.z,
+      target.position[2],
+      alpha,
+    )
+
+    currentLook.current.lerp(targetLook, profile.reducedMotion ? 1 : 0.055)
+    state.camera.lookAt(currentLook.current)
   })
 
   return <group ref={group}>{children}</group>
@@ -89,7 +112,7 @@ function WorldScene({ activeLane, profile, quality }) {
       <pointLight position={[-4, 2.5, 2]} color="#ffce32" intensity={4} distance={7} />
       <pointLight position={[4, 2.3, -2]} color="#7dd3fc" intensity={3} distance={6} />
 
-      <WorldRig profile={profile}>
+      <WorldRig profile={profile} activeLane={activeLane}>
         <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow={quality.shadows}>
           <circleGeometry args={[7.4, profile.tier === 'lite' ? 40 : 96]} />
           <meshStandardMaterial color="#0d2119" roughness={0.92} metalness={0.02} />
@@ -146,7 +169,12 @@ export default function HeavyWorld({ activeLane, profile }) {
   const quality = qualityByTier[profile.tier] || qualityByTier.balanced
 
   return (
-    <div className="world-canvas" aria-hidden="true" data-spatial-renderer="webgl">
+    <div
+      className="world-canvas"
+      aria-hidden="true"
+      data-spatial-renderer="webgl"
+      data-camera-lane={activeLane}
+    >
       <Canvas
         camera={{ position: [0, 4.4, 9.4], fov: 42, near: 0.1, far: 40 }}
         dpr={quality.dpr}
