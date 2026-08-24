@@ -27,12 +27,155 @@ jobs:
       - name: Build production bundle
         run: npm run build
 
-      - name: Export validation artifact
-        uses: actions/upload-artifact@v4
+      - name: Start production preview
+        shell: bash
+        run: |
+          mkdir -p proof
+          npm run preview -- --host 127.0.0.1 --port 4173 > proof/preview.log 2>&1 &
+          echo $! > proof/preview.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat proof/preview.log
+          exit 1
+
+      - name: Verify PWA static surfaces
+        shell: bash
+        run: |
+          curl --fail --silent --show-error http://127.0.0.1:4173/manifest.webmanifest > proof/manifest.webmanifest
+          curl --fail --silent --show-error http://127.0.0.1:4173/sw.js > proof/sw.js
+          grep -q '"display"' proof/manifest.webmanifest
+          grep -q 'standalone' proof/manifest.webmanifest
+          grep -q 'fetch' proof/sw.js
+
+      - name: Locate Chromium
+        shell: bash
+        run: |
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "No Chromium-compatible browser exists on this runner" >&2
+            exit 1
+          fi
+          echo "CHROME=$CHROME" >> "$GITHUB_ENV"
+          "$CHROME" --version | tee proof/chromium-version.txt
+
+      - name: Receipt desktop browser runtime
+        shell: bash
+        run: |
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --user-data-dir=/tmp/kopano-desktop \
+            --window-size=1440,1000 \
+            --virtual-time-budget=5000 \
+            --log-net-log=proof/desktop-netlog.json \
+            --screenshot=proof/desktop.png \
+            http://127.0.0.1:4173/
+
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --user-data-dir=/tmp/kopano-desktop-dom \
+            --window-size=1440,1000 \
+            --virtual-time-budget=5000 \
+            --dump-dom \
+            http://127.0.0.1:4173/ > proof/desktop.html
+
+          grep -q 'Learn enough to move.' proof/desktop.html
+          grep -q 'Learning Network' proof/desktop.html
+          test -s proof/desktop.png
+
+      - name: Receipt mobile browser runtime
+        shell: bash
+        run: |
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --user-data-dir=/tmp/kopano-mobile \
+            --window-size=390,844 \
+            --virtual-time-budget=5000 \
+            --screenshot=proof/mobile.png \
+            http://127.0.0.1:4173/
+
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --user-data-dir=/tmp/kopano-mobile-dom \
+            --window-size=390,844 \
+            --virtual-time-budget=5000 \
+            --dump-dom \
+            http://127.0.0.1:4173/ > proof/mobile.html
+
+          grep -q 'Mobile learning world' proof/mobile.html
+          grep -q 'Learn enough to move.' proof/mobile.html
+          test -s proof/mobile.png
+
+      - name: Receipt reduced-motion lite runtime
+        shell: bash
+        run: |
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --force-prefers-reduced-motion=reduce \
+            --user-data-dir=/tmp/kopano-lite \
+            --window-size=390,844 \
+            --virtual-time-budget=5000 \
+            --log-net-log=proof/lite-netlog.json \
+            --screenshot=proof/mobile-lite.png \
+            http://127.0.0.1:4173/
+
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --force-prefers-reduced-motion=reduce \
+            --user-data-dir=/tmp/kopano-lite-dom \
+            --window-size=390,844 \
+            --virtual-time-budget=5000 \
+            --dump-dom \
+            http://127.0.0.1:4173/ > proof/mobile-lite.html
+
+          grep -q '>lite</span>' proof/mobile-lite.html
+          grep -q 'static-world' proof/mobile-lite.html
+          if grep -q 'HeavyWorld-' proof/lite-netlog.json; then
+            echo 'FOC: lite/reduced-motion path requested the heavy Three.js chunk' >&2
+            exit 1
+          fi
+          test -s proof/mobile-lite.png
+
+      - name: Write exact-head proof receipt
+        shell: bash
+        run: |
+          {
+            echo "schema=s0_pa_browser_proof_v1"
+            echo "head_sha=${{ github.event.pull_request.head.sha }}"
+            echo "merge_test_sha=${{ github.sha }}"
+            echo "run_id=${{ github.run_id }}"
+            echo "desktop=pass"
+            echo "mobile=pass"
+            echo "reduced_motion_lite=pass"
+            echo "lite_heavy_chunk_requested=false"
+            echo "manifest_reachable=pass"
+            echo "service_worker_script_reachable=pass"
+            echo "external_deployed_preview=not_proven_by_this_workflow"
+          } > proof/receipt.txt
+
+      - name: Export S0.PA validation artifact
+        uses: actions/upload-artifact@v6
+        if: always()
         with:
-          name: s0-pa-validation
+          name: s0-pa-browser-proof-${{ github.event.pull_request.head.sha }}
           path: |
+            proof
             dist
             package-lock.json
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14
