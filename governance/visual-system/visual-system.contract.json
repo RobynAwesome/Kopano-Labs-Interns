@@ -1,0 +1,206 @@
+{
+  "schema": "kln.visual-system.v1",
+  "status": "truth-lock",
+  "authority": {
+    "masterIssue": 3,
+    "run": "S0.PC",
+    "humanSpec": "governance/visual-system/README.md",
+    "temporalAuthority": "NOW.md"
+  },
+  "thesis": {
+    "experience": "living spatial Kopano knowledge network + editorial Knowledge Stream + adaptive mobile application",
+    "journey": ["learn", "build", "community", "opportunity"],
+    "antiPatterns": [
+      "card-wall",
+      "text-wall",
+      "decorative-threejs-only",
+      "desktop-shrunk-into-mobile",
+      "status-by-colour-alone",
+      "unlicensed-reference-copying"
+    ]
+  },
+  "palette": {
+    "foundation": {
+      "canvas": "#08130f",
+      "surface": "#0a1712",
+      "textPrimary": "#f7fff9",
+      "textMuted": "#a7beb3",
+      "line": "#b5efd0"
+    },
+    "laneAccents": {
+      "learn": "#ffce32",
+      "build": "#ff6b6b",
+      "community": "#7dd3fc",
+      "opportunity": "#a7f3d0"
+    },
+    "semanticStates": {
+      "knowledge": "#ffce32",
+      "positive": "#a7f3d0",
+      "navigation": "#7dd3fc",
+      "warning": "#ff6b6b",
+      "experiment": "#c4b5fd"
+    },
+    "precedence": [
+      "system-status",
+      "interaction-state",
+      "lane-accent",
+      "decorative"
+    ],
+    "collisionPolicy": {
+      "laneAccentMayShareHexWithSemanticState": true,
+      "systemStatusOverridesLaneAccent": true,
+      "requireSecondaryCue": true,
+      "secondaryCueExamples": ["label", "icon", "shape", "pattern", "position"]
+    }
+  },
+  "typography": {
+    "display": {
+      "character": "rounded-editorial",
+      "fallbackStack": ["ui-rounded", "SF Pro Rounded", "Inter", "system-ui", "sans-serif"],
+      "role": "large directional headlines with short line length"
+    },
+    "body": {
+      "character": "plain-readable",
+      "fallbackStack": ["Inter", "system-ui", "sans-serif"],
+      "role": "instructions, proof, provenance and learning copy"
+    },
+    "productionFontPolicy": "Use system fallbacks or a font with explicit production licensing; reference imagery does not grant font rights."
+  },
+  "contentDepth": {
+    "GLANCE": {
+      "intent": "orient",
+      "timeScale": "seconds",
+      "allowedForms": ["headline", "status", "short-form", "preview", "beacon"],
+      "must": ["clear next action", "minimal cognitive load"]
+    },
+    "LEARN": {
+      "intent": "understand",
+      "timeScale": "minutes",
+      "allowedForms": ["lesson", "explainer", "video", "workshop", "article"],
+      "must": ["source or provenance", "resume context", "usable explanation"]
+    },
+    "BUILD": {
+      "intent": "produce-proof",
+      "timeScale": "practical-work",
+      "allowedForms": ["project", "lab", "challenge", "submission"],
+      "must": ["expected artefact", "acceptance condition", "receipt path"]
+    }
+  },
+  "spatialGrammar": {
+    "primitives": ["node", "route", "beacon", "district", "progression"],
+    "rules": {
+      "node": "represents a selectable capability, content object or governed state",
+      "route": "represents a meaningful relationship or navigable transition",
+      "beacon": "signals priority, availability or current context without becoming motion-only meaning",
+      "district": "groups related capabilities or programme lanes with a stable navigation identity",
+      "progression": "shows evidence-backed movement; never fabricates completion"
+    },
+    "threeJsMustEncodeAtLeastOne": ["navigation", "relationship", "progression", "active-context", "system-status"],
+    "staticFallbackMustPreserve": ["lane identity", "active context", "route relationships", "primary navigation"],
+    "forbidden": ["background-only-particles", "unreadable-camera-theatre", "motion-required-navigation"]
+  },
+  "editorialGrammar": {
+    "moduleTypes": ["feature", "short-form", "explainer", "video", "project", "event", "challenge"],
+    "rules": {
+      "hierarchy": "mix feature-scale anchors with compact utility and proof modules",
+      "rhythm": "vary scale, density and media treatment; repeated identical cards are not the default",
+      "proof": "claims, affiliations, availability and completion states keep receipts/provenance attached",
+      "media": "media earns space through information value, not decoration",
+      "copy": "prefer orientation and action over long institutional prose"
+    }
+  },
+  "composition": {
+    "desktop": {
+      "minViewportPx": 901,
+      "rules": [
+        "spatial world and editorial copy may coexist side-by-side",
+        "context controls remain visible without covering primary content",
+        "information hierarchy may use asymmetry and oversized display type"
+      ]
+    },
+    "intermediate": {
+      "minViewportPx": 701,
+      "maxViewportPx": 900,
+      "rules": [
+        "multi-column content collapses intentionally",
+        "spatial context remains legible",
+        "primary action stays reachable without precision pointer input"
+      ]
+    },
+    "mobile": {
+      "maxViewportPx": 700,
+      "rearrangeNotShrink": true,
+      "thumbReachablePrimaryNavigation": true,
+      "minimumTargetPx": 44,
+      "rules": [
+        "desktop lane switcher becomes a thumb-reachable mobile navigation pattern",
+        "hero composition prioritizes headline, primary action and active context",
+        "secondary spatial annotation may disappear when redundant",
+        "no horizontal text dependency for core tasks"
+      ]
+    }
+  },
+  "adaptive": {
+    "tiers": {
+      "full": {
+        "webgl": true,
+        "motion": "rich-but-purposeful",
+        "mustPreserve": ["navigation semantics", "browser history", "accessibility"]
+      },
+      "balanced": {
+        "webgl": true,
+        "motion": "bounded",
+        "mustPreserve": ["navigation semantics", "browser history", "accessibility"]
+      },
+      "lite": {
+        "webgl": false,
+        "motion": "minimal-static-first",
+        "mustPreserve": ["lane identity", "active context", "primary navigation", "content access"]
+      }
+    },
+    "reducedMotion": {
+      "mode": "lite-or-equivalent-static",
+      "motionOnlyMeaningForbidden": true
+    },
+    "saveData": {
+      "heavySpatialChunkForbidden": true,
+      "mediaAutoplayForbidden": true
+    }
+  },
+  "assets": {
+    "allowedProvenance": [
+      "repository-owned-original",
+      "explicitly-licensed",
+      "public-domain",
+      "documented-partner-provided"
+    ],
+    "requiredMetadata": ["source", "owner", "license", "altStrategy", "performanceBudget"],
+    "rules": {
+      "userReferenceIsDirectionNotLicence": true,
+      "towersSourceOrArtworkCopyForbidden": true,
+      "externalMediaRequiresAdmissionReceipt": true,
+      "decorativeMediaMayBeDroppedOnLite": true
+    }
+  },
+  "accessibility": {
+    "statusRequiresNonColorCue": true,
+    "motionOnlyMeaningForbidden": true,
+    "keyboardCoreNavigationRequired": true,
+    "criticalContrastMinimum": 4.5,
+    "largeTextContrastMinimum": 3.0,
+    "contrastPairs": [
+      {"foreground": "palette.foundation.textPrimary", "background": "palette.foundation.canvas", "minimum": 4.5},
+      {"foreground": "palette.foundation.textMuted", "background": "palette.foundation.canvas", "minimum": 4.5},
+      {"foreground": "palette.laneAccents.learn", "background": "palette.foundation.canvas", "minimum": 3.0},
+      {"foreground": "palette.laneAccents.build", "background": "palette.foundation.canvas", "minimum": 3.0},
+      {"foreground": "palette.laneAccents.community", "background": "palette.foundation.canvas", "minimum": 3.0},
+      {"foreground": "palette.laneAccents.opportunity", "background": "palette.foundation.canvas", "minimum": 3.0}
+    ]
+  },
+  "validation": {
+    "contractRequiredForFutureVisualPRs": true,
+    "visualAttractivenessCannotOverrideContract": true,
+    "srcImplementationChangesAllowedInThisRun": false,
+    "futureVisualPOCRequires": ["contract", "implementation", "desktop receipt", "mobile receipt", "lite or reduced-motion receipt"]
+  }
+}
