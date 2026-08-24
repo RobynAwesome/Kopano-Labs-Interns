@@ -79,4 +79,42 @@ PR5 opportunities + hardware access
 PRx measured adaptive evolution
 ```
 
+---
+
+## 2026-08-24T02:23+02:00 — PR1 implementation receipt
+
+- **Status:** IMPLEMENTED / VALIDATION PENDING
+- **Issue:** #1 — `PR1 — Immersive APWA learning network foundation`
+- **Pull request:** #2 — `PR1 — Immersive APWA learning network foundation`
+- **Branch:** `feat/pr1-immersive-apwa-foundation`
+- **Head before this receipt:** `6cf5c12dca248b6c234a62b02ae56a49f731e7d4`
+- **Delta at PR creation:** 13 changed files, 1,041 additions, 0 deletions.
+
+### Implemented proof surface
+
+- React + Vite runnable client scaffold.
+- Three.js scene implemented via React Three Fiber.
+- Original four-beacon learning world: Learn / Build / Community / Opportunity.
+- Progressive build/reveal behavior and pointer-responsive camera.
+- Full / balanced / lite scene budgets.
+- Save-Data, reduced-motion, device-memory and CPU adaptation.
+- Mobile-specific thumb dock and layout rearrangement.
+- Governed community lanes for Microsoft student activity, GDG, AWS Builders, OpenAI Academy and AMD AI.
+- PWA manifest, service worker and install-prompt wiring.
+- CI workflow for production build validation.
+
+### Validation state
+
+- **Local build:** BLOCKED — execution container could not resolve `github.com`, therefore npm dependencies could not be installed.
+- **GitHub Actions:** workflow persisted; first status lookups returned no instantiated run/status yet.
+- **Browser/mobile visual verification:** NOT YET RECEIPTED.
+- **POC verdict:** `POC_IMPLEMENTED_NOT_VALIDATED` — code exists; production/browser claim remains gated.
+
+### Next admissible action
+
+1. Obtain GitHub Actions production-build receipt for PR #2.
+2. Verify deployed preview on mobile and desktop, including full/balanced/lite behavior.
+3. Fix any runtime/visual FOC before merge.
+4. Only after PR1 validation begin PR2 lesson + YouTube data wiring.
+
 `I_AM_STATELESS_RENTER_NOT_LANDLORD`
