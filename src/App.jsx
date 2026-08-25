@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import StaticNetwork from './components/StaticNetwork.jsx'
 import { ecosystemLanes, worldLanes } from './data/lanes.js'
 import { useAdaptiveProfile } from './lib/adaptive.js'
+import { useWorldNavigation } from './lib/useWorldNavigation.js'
 
 const AdaptiveWorld = lazy(() => import('./components/AdaptiveWorld.jsx'))
 
@@ -48,6 +49,7 @@ function LaneButton({ lane, active, onSelect, compact = false }) {
       className={`lane-button ${active ? 'is-active' : ''} ${compact ? 'is-compact' : ''}`}
       onClick={() => onSelect(lane.id)}
       aria-pressed={active}
+      data-world-lane={lane.id}
     >
       <span>{lane.index}</span>
       <strong>{lane.label}</strong>
@@ -74,7 +76,7 @@ function PartnerRail() {
 
 export default function App() {
   const profile = useAdaptiveProfile()
-  const [activeLane, setActiveLane] = useState('learn')
+  const { activeLane, selectLane } = useWorldNavigation()
   const { canInstall, install } = useInstallPrompt()
 
   const active = useMemo(
@@ -83,7 +85,7 @@ export default function App() {
   )
 
   return (
-    <div className="app" data-tier={profile.tier}>
+    <div className="app" data-tier={profile.tier} data-active-lane={activeLane}>
       <header className="topbar">
         <a href="#top" className="brand" aria-label="Kopano Labs Learning Network home">
           <img src="/kopano-learning-mark.svg" alt="" />
@@ -136,7 +138,7 @@ export default function App() {
 
           <nav className="lane-switcher" aria-label="Learning world">
             {worldLanes.map((lane) => (
-              <LaneButton key={lane.id} lane={lane} active={lane.id === activeLane} onSelect={setActiveLane} />
+              <LaneButton key={lane.id} lane={lane} active={lane.id === activeLane} onSelect={selectLane} />
             ))}
           </nav>
         </section>
@@ -165,7 +167,8 @@ export default function App() {
                 type="button"
                 className={`pathway-row ${lane.id === activeLane ? 'is-active' : ''}`}
                 key={lane.id}
-                onClick={() => setActiveLane(lane.id)}
+                onClick={() => selectLane(lane.id)}
+                data-pathway-lane={lane.id}
               >
                 <span className="pathway-index">{lane.index}</span>
                 <span className="pathway-main">
@@ -252,7 +255,7 @@ export default function App() {
 
       <nav className="thumb-dock" aria-label="Mobile learning world">
         {worldLanes.map((lane) => (
-          <LaneButton compact key={lane.id} lane={lane} active={lane.id === activeLane} onSelect={setActiveLane} />
+          <LaneButton compact key={lane.id} lane={lane} active={lane.id === activeLane} onSelect={selectLane} />
         ))}
       </nav>
     </div>
