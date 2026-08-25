@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-26T01:46:00+02:00 (SAST)
+> **Updated:** 2026-08-26T01:48:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -14,134 +14,167 @@
 
 ## Current objective
 
-**Sprint 1 is CLOSED / POC_VALIDATED.** Recover the current learning-content truth, reconcile any stale placeholder narration, and PRE-SEED **Sprint 2 / Run A (S2.PA) — Content + provenance contracts** before material content implementation.
+Execute **Sprint 2 / Run A (S2.PA) — Content + provenance contracts**. Establish the machine-testable learning-content spine before any editorial feed or lesson-route experience is implemented.
 
 | Run | State | Canonical truth |
 |---|---|---|
 | **Sprint 0** | **CLOSED / POC_VALIDATED** | Foundation + governance + visual truth lock complete. |
-| **Sprint 1** | **CLOSED / POC_VALIDATED** | Spatial identity + browser navigation + adaptive 3D hardening all validated and merged. |
-| **S2.PA — Content + provenance contracts** | **NEXT / NOT YET PRE-SEEDED** | Recover current content model truth, then define governed lesson/article/video/resource + provenance + depth + lifecycle contracts. |
-| **S2.PB — Editorial Knowledge Stream** | **QUEUED** | No implementation before S2.PA receipt. |
-| **S2.PC — Lesson route + offline learning** | **QUEUED** | No implementation before S2.PA/S2.PB receipts. |
-
-```text
-Sprint 0 ✅
--> Sprint 1 ✅
--> recover content reality
--> S2.PA PRE-SEED
-```
+| **Sprint 1** | **CLOSED / POC_VALIDATED** | Spatial identity + browser navigation + adaptive 3D hardening complete. |
+| **S2.PA — Content + provenance contracts** | **ACTIVE / PRE-SEEDED** | Define content types, provenance, YouTube reference adapter boundary, GLANCE/LEARN/BUILD depth obligations and lifecycle law. |
+| **S2.PB — Editorial Knowledge Stream** | **QUEUED** | No feed implementation before S2.PA merge receipt. |
+| **S2.PC — Lesson route + offline learning** | **QUEUED** | No route/offline/progress implementation before prior receipts. |
 
 ---
 
-# SPRINT 1 RECEIPT CHAIN
+# SPRINT 1 CLOSE RECEIPT
 
-## S1.PA — Spatial identity primitives
-
-- PR #8 exact head `4a8c3cd2bc18ba7e6537d1c59773a001ff91153d`.
-- CI `32756479868`; artifact `9531042977`.
-- Governance 6/6, visual 10/10, spatial 7/7 PASS.
-- Merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`.
-- Verdict `POC_VALIDATED`.
-
-## S1.PB — Camera + world-state navigation
-
-- PRE-SEED `df222abe4346272c9cefd11c4dba158ed3a3784a`.
-- PR #9 exact head `0afbb0937054d6b1abc90d1a9bf22883d26a94e9`.
-- CI `32910959682`; job `98004884948`.
-- Governance 6/6, visual 10/10, spatial 7/7, world-navigation 10/10 PASS.
-- Real Chromium deep-link / Back / Forward / anchor proof PASS.
-- Artifact `9586538171`; digest `sha256:4345b1680e0f8cd38ab8f217c380dfe2c2973d44fbf8933a6718dfc7a7fc6880`.
-- Merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`.
-- Verdict `POC_VALIDATED`.
-
-## S1.PC — Adaptive 3D hardening
-
-- PRE-SEED `63d7872aaab61ec27c4a68e21a26892915c9fcd4`.
-- PR #10 exact reviewed/merged head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
-- Merge-test SHA `4fe495c23bcd35ab416fe4ce63fb5fb96ae54d64`.
-- CI `32911942643`; job `98007714197`.
-- Governance 6/6, visual 10/10, spatial 7/7, world-navigation 10/10, adaptive-render 13/13 PASS.
-- Measured bundle proof PASS:
-  - entry 212,108 raw / 66,444 gzip <= 220,000 / 70,000;
-  - HeavyWorld 887,708 raw / 233,912 gzip <= 900,000 / 245,000.
-- Chromium matrix PASS for full / balanced / low-device lite / Save-Data / reduced-motion / offline / WebGL-unavailable.
-- Constrained HeavyWorld request FALSE.
-- S1.PB browser navigation regression PASS.
-- Desktop/mobile/lite screenshots PASS.
-- Artifact `9586826584`; digest `sha256:1faf545b83db8cea2bcea57d60609846721dd5a303a9fa597c6a34a1ccea1000`.
-- **Merge SHA:** `a57220f5b4eaeba0d780558377f1b35d9d9fcfa0`.
-- Exact-head SHA guard used at merge.
-- Verdict `POC_VALIDATED`.
-
-## 2026-08-26T01:46:00+02:00 — SPRINT 1 MERGE RECONCILIATION
-
-- PR #10 merged at exact validated head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
-- Merge SHA `a57220f5b4eaeba0d780558377f1b35d9d9fcfa0`.
-- No unresolved S1.PA/PB/PC FOC remains inside Sprint 1 bounded scope.
-- **Sprint 1 verdict:** `CLOSED / POC_VALIDATED`.
-
-Validated Sprint 1 capability:
-
-```text
-original Kopano spatial primitives
-+ shared static/WebGL topology
-+ browser-addressable district navigation
-+ native Back/Forward/deep-link semantics
-+ route-aware camera projection
-+ adaptive full/balanced/lite admission
-+ constrained canonical static fallback
-+ WebGL-unavailable recovery
-+ measured bundle guardrails
-```
+- S1.PA PR #8 merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a` — `POC_VALIDATED`.
+- S1.PB PR #9 merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9` — `POC_VALIDATED`.
+- S1.PC PR #10 exact head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`; merge `a57220f5b4eaeba0d780558377f1b35d9d9fcfa0`; CI `32911942643`; artifact `9586826584`; `POC_VALIDATED`.
+- Sprint 1 reconciliation commit immediately before this PRE-SEED: `6d577581d82f402bcf78085fdbd27c5ceb66a9ab`.
+- **Sprint 1:** CLOSED / POC_VALIDATED.
 
 ---
 
-# SPRINT 2 CONTRACT FROM MASTER ISSUE #3
+# CONTENT REALITY RECOVERY — BEFORE S2.PA
+
+Exact repository inspection on current `main` established:
+
+1. `src/data/` contains only `lanes.js`; there is **no lesson/article/video/resource data model**.
+2. There is **no YouTube metadata adapter**, API client, key, feed, or normalized video source model.
+3. `GLANCE / LEARN / BUILD` currently exists as a **governed visual/content-depth contract only** in `governance/visual-system/visual-system.contract.json`; it is not yet attached to runtime content objects.
+4. The visual contract already requires:
+   - GLANCE -> clear next action + minimal cognitive load;
+   - LEARN -> source/provenance + resume context + usable explanation;
+   - BUILD -> expected artefact + acceptance condition + receipt path.
+5. The current watch surface still says “PR2 wires the governed lesson/video data model.” That is stale narration; no such model exists on `main` today.
+6. Third-party ecosystem names exist as governed lanes only; there are no content-level ownership/provenance records to inherit.
+7. Therefore S2.PA is a **greenfield governed contract**, not a migration, and must not fabricate example lessons, view counts, completions, partner ownership or publication receipts.
+
+---
+
+# 2026-08-26T01:48:00+02:00 — PRE-SEED — SPRINT 2 / RUN A
+
+- **Status:** IN-PROGRESS.
+- **Actor:** DPF/Forge stateless renter.
+- **Master issue:** #3.
+- **Sprint objective:** create the content/provenance substrate required for the editorial Knowledge Stream and later offline lesson routes.
+- **PR-run objective:** define and enforce content identity, type, depth obligations, source ownership/provenance, external-media admission boundaries, YouTube metadata normalization and publish/update/archive lifecycle without connecting a live feed.
+- **Base branch:** `main`.
+- **Exact base before this PRE-SEED commit:** `6d577581d82f402bcf78085fdbd27c5ceb66a9ab`.
+- **Intended branch:** `sprint-02/run-a-content-provenance-contracts`.
+- **Dependencies:** S0.PC visual/content-depth contract; master Issue #3; public-core/no-fake-claims invariants.
+
+## Scope IN
+
+1. canonical learning content types: `lesson`, `article`, `video`, `resource`;
+2. canonical content-depth tags: `GLANCE`, `LEARN`, `BUILD`;
+3. stable content identity + title/summary + public access contract;
+4. depth-specific obligations:
+   - GLANCE requires a clear next action;
+   - LEARN requires learning objective + provenance + resume strategy metadata;
+   - BUILD-tagged learning content must carry an explicit build transition with expected artefact, acceptance condition and receipt path; the tag cannot fabricate completion;
+5. source/provenance model separating ownership/relationship from endorsement:
+   - first-party owned;
+   - explicitly licensed;
+   - public-domain;
+   - documented partner-provided;
+   - external reference-only;
+6. provenance fields for source identity, owner, canonical source URL where external, rights/relationship state, licence/rights assertion, attribution and verification timestamp;
+7. prohibit partner/endorsement inference from provider/channel names alone;
+8. YouTube metadata **adapter boundary only**:
+   - normalize video id/title/description/channel/published timestamp/canonical watch URL;
+   - expose external thumbnail candidates only as `unadmitted` media metadata;
+   - never infer views, duration, completion, rights ownership, Kopano partnership or content depth;
+   - adapter output is not automatically publishable content;
+9. lifecycle states `draft`, `published`, `archived` with created/updated/published/archived timestamp law and archive reason;
+10. machine validator/assertion functions and deterministic malformed-state rejection tests;
+11. human governance specification explaining authoring/admission semantics;
+12. correct the stale watch-surface “PR2 wires…” narration to state the real boundary after contracts exist while leaving the feed explicitly unconnected;
+13. add dependency-free content-contract tests to CI before dependency installation;
+14. preserve all Sprint 0/1 governance/visual/spatial/navigation/adaptive/build/browser receipts.
+
+## Scope OUT
+
+- no real lesson/article/video/resource publication in this run;
+- no YouTube API key, API request, live channel/feed connection or scraping;
+- no thumbnail/media production admission;
+- no editorial Knowledge Stream layout/modules — S2.PB;
+- no lesson detail route, saved/offline state, completion/progress or search/filter — S2.PC;
+- no community/event model — Sprint 3;
+- no Build workspace/submission system — Sprint 4;
+- no provider deployment/live-domain work;
+- no unsupported partner/endorsement claims.
+
+## Core design law
+
+```text
+external metadata != admitted content
+provider/channel name != partnership
+content publication != content ownership
+BUILD tag != completion
+BUILD tag -> expected artefact + acceptance condition + receipt path
+published -> provenance validated
+archived -> explicit archive timestamp + reason
+```
+
+## Planned validation
+
+- canonical content type/depth/lifecycle vocabulary tests;
+- valid first-party and external-reference content examples only as synthetic test fixtures;
+- reject unknown content type/depth/state;
+- reject missing/invalid stable identity, title, summary and public-access state;
+- reject LEARN without learning objective/resume/provenance;
+- reject BUILD without expected artefact/acceptance/receipt path;
+- reject any self-asserted completion field in content contract;
+- reject published content without publish timestamp or verified provenance;
+- reject archived content without archive timestamp/reason;
+- reject impossible timestamp ordering;
+- reject external reference without canonical HTTPS URL + owner;
+- reject documented partner-provided provenance without evidence URL;
+- YouTube adapter valid-id normalization tests;
+- reject malformed/missing YouTube video id/channel metadata;
+- prove YouTube adapter does not emit metrics, depth, partnership or rights ownership claims;
+- prove thumbnail candidates remain `unadmitted`;
+- existing governance/visual/spatial/world-navigation/adaptive tests remain green;
+- production build/browser/mobile/lite regression proof remains green;
+- exact-head CI artifact and manual screenshot inspection before merge.
+
+## HOLD / rollback conditions
+
+- content model implies ownership or endorsement from a third-party name alone;
+- published state can exist without provenance verification;
+- BUILD can exist without proof expectations;
+- YouTube adapter fabricates views/duration/licence/depth/partnership;
+- external thumbnails become production assets merely by normalization;
+- real feed/UI implementation leaks into S2.PA;
+- any Sprint 0/1 gate regresses.
+
+- **Next admissible action:** create `sprint-02/run-a-content-provenance-contracts` from this PRE-SEED commit and implement only S2.PA.
+
+---
+
+# SPRINT 2 MASTER CONTRACT
 
 ## S2.PA — Content + provenance contracts
-
-- lesson / article / video / resource schema;
-- source ownership / provenance;
+- lesson/article/video/resource schema;
+- source ownership/provenance;
 - YouTube metadata adapter boundary;
-- GLANCE / LEARN / BUILD depth tags;
-- publish / update / archive state.
+- GLANCE/LEARN/BUILD depth tags;
+- publish/update/archive state.
 
 ## S2.PB — Editorial Knowledge Stream
-
 - magazine/feed composition;
-- feature, short-form, explainer, video, project, event and challenge modules;
-- visual hierarchy instead of card-wall repetition;
-- responsive/rearranged mobile feed.
+- feature/short-form/explainer/video/project/event/challenge modules;
+- visual hierarchy, not card-wall repetition;
+- responsive mobile rearrangement.
 
 ## S2.PC — Lesson route + offline learning
-
 - lesson detail route;
 - saved/offline surfaces;
-- progress state without fake completion;
+- progress without fake completion;
 - search/filter fundamentals;
 - weak-network resilience receipts.
-
-Sprint 2 exit: real content can be discovered, consumed and resumed.
-
----
-
-# CURRENT REQUIRED RECOVERY BEFORE S2.PA PRE-SEED
-
-The current UI contains placeholder copy claiming that a future/legacy “PR2 wires the governed lesson/video data model.” Do not accept that narration as implementation truth. Before S2.PA PRE-SEED:
-
-1. inspect repository content/data surfaces for any real lesson/article/video/resource model;
-2. inspect existing placeholders, IDs, ownership/provenance assumptions and third-party names;
-3. determine whether any YouTube adapter already exists;
-4. determine whether GLANCE / LEARN / BUILD depth is implemented anywhere beyond the S0.PC visual contract;
-5. reconcile findings into S2.PA scope rather than inventing migration state.
-
----
-
-# NAMED HOLDS
-
-- Provider/live domain -> S6.PC.
-- Offline update/recovery lifecycle -> later APWA resilience / S6.PB.
-- Branch protection not enabled/proven.
 
 ---
 
@@ -151,6 +184,7 @@ The current UI contains placeholder copy claiming that a future/legacy “PR2 wi
 - No fake content metrics, completions, affiliations, event attendance, hardware access or provider claims.
 - Third-party content ownership/provenance must be explicit; names do not imply endorsement.
 - BUILD depth requires an inspectable artefact/proof expectation; self-asserted completion is insufficient.
+- External media requires separate production admission; metadata normalization is not a licence.
 - Three.js communicates state/navigation/relationships, not decoration.
 - Browser navigation state remains authoritative over camera motion.
 - Static and WebGL share canonical topology.
