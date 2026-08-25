@@ -45,16 +45,25 @@ jobs:
       - name: Validate world navigation contract
         run: node --test tests/world-navigation.test.mjs
 
+      - name: Validate adaptive render policy
+        run: node --test tests/adaptive-render-policy.test.mjs
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
       - name: Build production bundle
         run: npm run build
 
-      - name: Start production preview
+      - name: Enforce spatial bundle budgets
         shell: bash
         run: |
           mkdir -p proof
+          node scripts/check-spatial-budgets.mjs | tee proof/spatial-budget-proof.json
+          grep -q '"verdict": "pass"' proof/spatial-budget-proof.json
+
+      - name: Start production preview
+        shell: bash
+        run: |
           npm run preview -- --host 127.0.0.1 --port 4173 > proof/preview.log 2>&1 &
           echo $! > proof/preview.pid
           for attempt in $(seq 1 30); do
@@ -86,6 +95,50 @@ jobs:
           echo "CHROME=$CHROME" >> "$GITHUB_ENV"
           "$CHROME" --version | tee proof/chromium-version.txt
 
+      - name: Receipt adaptive tier and fallback matrix
+        shell: bash
+        run: |
+          ADAPT_PID=""
+          cleanup() {
+            if [ -n "$ADAPT_PID" ]; then
+              kill "$ADAPT_PID" 2>/dev/null || true
+            fi
+          }
+          trap cleanup EXIT
+
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --remote-debugging-address=127.0.0.1 \
+            --remote-debugging-port=9223 \
+            --remote-allow-origins='*' \
+            --user-data-dir=/tmp/kopano-adaptive-proof \
+            --window-size=1200,900 \
+            about:blank > proof/adaptive-browser.log 2>&1 &
+          ADAPT_PID=$!
+
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent --show-error http://127.0.0.1:9223/json/version > proof/adaptive-debugger.json; then
+              break
+            fi
+            sleep 0.25
+          done
+          curl --fail --silent --show-error http://127.0.0.1:9223/json/version > /dev/null
+
+          node scripts/prove-adaptive-runtime.mjs http://127.0.0.1:9223 http://127.0.0.1:4173 > proof/adaptive-runtime-proof.json
+          grep -q '"verdict": "pass"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "full"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "balanced"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "lite-low-device"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "save-data"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "reduced-motion"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "offline-signal"' proof/adaptive-runtime-proof.json
+          grep -q '"name": "webgl-unavailable"' proof/adaptive-runtime-proof.json
+
+          cleanup
+          trap - EXIT
+
       - name: Receipt canonical district deep links
         shell: bash
         run: |
@@ -116,6 +169,7 @@ jobs:
 
           grep -q 'data-active-lane="opportunity"' proof/deeplink-opportunity-lite.html
           grep -q 'data-spatial-renderer="static"' proof/deeplink-opportunity-lite.html
+          grep -q 'data-spatial-fallback-reason="reduced-motion"' proof/deeplink-opportunity-lite.html
           grep -q 'data-spatial-node="learn"' proof/deeplink-opportunity-lite.html
           grep -q 'data-spatial-node="opportunity"' proof/deeplink-opportunity-lite.html
 
@@ -247,6 +301,8 @@ jobs:
           grep -q '>lite</span>' proof/mobile-lite.html
           grep -q 'data-active-lane="learn"' proof/mobile-lite.html
           grep -q 'data-spatial-renderer="static"' proof/mobile-lite.html
+          grep -q 'data-spatial-budget="lite"' proof/mobile-lite.html
+          grep -q 'data-spatial-fallback-reason="reduced-motion"' proof/mobile-lite.html
           grep -q 'data-spatial-node="learn"' proof/mobile-lite.html
           grep -q 'data-spatial-node="opportunity"' proof/mobile-lite.html
           if grep -q 'HeavyWorld-' proof/lite-netlog.json; then
@@ -259,7 +315,7 @@ jobs:
         shell: bash
         run: |
           {
-            echo "schema=s1_pb_camera_world_navigation_v1"
+            echo "schema=s1_pc_adaptive_3d_hardening_v1"
             echo "head_sha=${{ github.event.pull_request.head.sha }}"
             echo "merge_test_sha=${{ github.sha }}"
             echo "run_id=${{ github.run_id }}"
@@ -270,17 +326,25 @@ jobs:
             echo "visual_system_negative_tests=pass"
             echo "spatial_model_tests=pass"
             echo "world_navigation_unit_tests=pass"
+            echo "adaptive_render_policy_tests=pass"
+            echo "spatial_bundle_budget=pass"
+            echo "adaptive_runtime_matrix=pass"
+            echo "full_webgl=pass"
+            echo "balanced_webgl=pass"
+            echo "lite_static=pass"
+            echo "save_data_static=pass"
+            echo "reduced_motion_static=pass"
+            echo "offline_static=pass"
+            echo "webgl_unavailable_static=pass"
+            echo "constrained_heavy_chunk_requested=false"
             echo "canonical_deeplink_webgl=pass"
             echo "canonical_deeplink_lite=pass"
             echo "browser_back_forward=pass"
             echo "anchor_preserves_lane=pass"
             echo "camera_lane_binding=pass"
-            echo "webgl_spatial_renderer=pass"
-            echo "static_spatial_renderer=pass"
             echo "desktop=pass"
             echo "mobile=pass"
             echo "reduced_motion_lite=pass"
-            echo "lite_heavy_chunk_requested=false"
             echo "manifest_reachable=pass"
             echo "service_worker_script_reachable=pass"
             echo "external_deployed_preview=not_proven_by_this_workflow"
@@ -290,13 +354,17 @@ jobs:
         uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: s1-pb-world-navigation-proof-${{ github.event.pull_request.head.sha }}
+          name: s1-pc-adaptive-3d-proof-${{ github.event.pull_request.head.sha }}
           path: |
             proof
             dist
             package-lock.json
             governance/visual-system
             src/spatial
+            src/lib/adaptive.js
+            src/components/AdaptiveWorld.jsx
             scripts/prove-world-navigation.mjs
+            scripts/prove-adaptive-runtime.mjs
+            scripts/check-spatial-budgets.mjs
           if-no-files-found: error
           retention-days: 14
