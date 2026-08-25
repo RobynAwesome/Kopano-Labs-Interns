@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-26T01:34:00+02:00 (SAST)
+> **Updated:** 2026-08-26T01:36:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -14,129 +14,145 @@
 
 ## Current objective
 
-S1.PB is merged and reconciled. Recover the exact S1.PC hardening contract, PRE-SEED it, and only then begin **Sprint 1 / Run C (S1.PC) — Adaptive 3D hardening**.
+Execute **Sprint 1 / Run C (S1.PC) — Adaptive 3D hardening** and close Sprint 1 only if its renderer admission, constrained-device behavior, WebGL failure recovery and measurable budgets are receipted.
 
 | Run | State | Canonical truth |
 |---|---|---|
 | **Sprint 0** | **CLOSED / POC_VALIDATED** | Foundation + governance + visual truth lock complete. |
 | **S1.PA — Spatial identity primitives** | **DONE / MERGED / POC_VALIDATED** | PR #8 merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`; shared static/WebGL topology proven. |
-| **S1.PB — Camera + world-state navigation** | **DONE / MERGED / POC_VALIDATED** | PR #9 exact head `0afbb093...`; merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`; browser history + camera binding proven. |
-| **S1.PC — Adaptive 3D hardening** | **NEXT / NOT YET PRE-SEEDED** | Full/balanced/lite budgets, mobile/reduced-motion guarantees, WebGL failure fallback and measurable performance receipts. |
+| **S1.PB — Camera + world-state navigation** | **DONE / MERGED / POC_VALIDATED** | PR #9 merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`; URL/history/camera authority proven. |
+| **S1.PC — Adaptive 3D hardening** | **ACTIVE / PRE-SEEDED** | One adaptive policy, measurable tier budgets, constrained-path HeavyWorld exclusion, WebGL admission/failure fallback and performance receipts. |
 
 ```text
 S1.PA ✅
 -> S1.PB ✅
--> S1.PC PRE-SEED
+-> S1.PC ACTIVE
 ```
 
 ---
 
-# PREDECESSOR RECEIPT — S1.PA
+# PREDECESSOR RECEIPTS
 
-- PRE-SEED `b5c47f7dfcf6555e1df8806ee6e791864ee76de0`.
+## S1.PA
+
 - PR #8 exact head `4a8c3cd2bc18ba7e6537d1c59773a001ff91153d`.
-- CI `32756479868`; job `97525090898`.
-- Spatial tests 7/7, visual tests 10/10, governance tests 6/6 PASS.
-- Artifact `9531042977`; digest `sha256:120f12f1d1c693b381a31ef111413e54891144e734f20ce74568bb015f059a4d`.
-- Manual desktop/mobile/lite screenshots PASS.
+- CI `32756479868`; artifact `9531042977`.
+- Governance 6/6, visual 10/10, spatial 7/7 PASS.
 - Merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`.
-- S1.PA verdict `POC_VALIDATED`.
-- S1.PA reconciliation commit before S1.PB seed: `e3ff0ec841b39ebeef38f16aa0f47b85f360a64f`.
+- Verdict `POC_VALIDATED`.
+
+## S1.PB
+
+- PRE-SEED `df222abe4346272c9cefd11c4dba158ed3a3784a`.
+- PR #9 exact head `0afbb0937054d6b1abc90d1a9bf22883d26a94e9`.
+- CI `32910959682`; job `98004884948`.
+- Governance 6/6, visual 10/10, spatial 7/7, world-navigation 10/10 PASS.
+- Real Chromium deep-link / Back / Forward / anchor proof PASS.
+- Artifact `9586538171`; digest `sha256:4345b1680e0f8cd38ab8f217c380dfe2c2973d44fbf8933a6718dfc7a7fc6880`.
+- Merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`.
+- S1.PB reconciliation commit immediately before this PRE-SEED: `d000a2717207e44dae8ede553958d0ce794d751f`.
+- Verdict `POC_VALIDATED`.
 
 ---
 
-# S1.PB — CAMERA + WORLD-STATE NAVIGATION
+# 2026-08-26T01:36:00+02:00 — PRE-SEED — SPRINT 1 / RUN C
 
-## PRE-SEED — 2026-08-24T19:33:00+02:00
-
+- **Status:** IN-PROGRESS.
 - **Actor:** DPF/Forge stateless renter.
 - **Master issue:** #3.
-- **Exact base before PRE-SEED:** `e3ff0ec841b39ebeef38f16aa0f47b85f360a64f`.
-- **PRE-SEED commit:** `df222abe4346272c9cefd11c4dba158ed3a3784a`.
-- **Branch:** `sprint-01/run-b-camera-world-state-navigation`.
-- **Objective:** bind canonical district state to URL/history and route-aware camera targets while preserving native Back/Forward and document anchors.
-- **Scope boundary:** no learner completion, final tier budgets, WebGL-failure policy, content models, external assets or provider deployment.
+- **Sprint objective:** finish Sprint 1 with a spatial renderer that is useful, navigable and adaptive under real device/network/motion/failure constraints.
+- **PR-run objective:** harden the existing renderer admission and quality system without redesigning the validated S1.PA/S1.PB world.
+- **Base branch:** `main`.
+- **Exact base before this PRE-SEED commit:** `d000a2717207e44dae8ede553958d0ce794d751f`.
+- **Intended branch:** `sprint-01/run-c-adaptive-3d-hardening`.
+- **Dependencies:** S0.PC visual contract; S1.PA shared topology; S1.PB browser/camera state; current `useAdaptiveProfile`, `AdaptiveWorld`, `HeavyWorld`, `StaticNetwork` and APWA CI.
 
-## Exact implementation
+## Scope IN
 
-- **PR #9:** `S1.PB — Bind camera to browser world state`.
-- **Exact reviewed head:** `0afbb0937054d6b1abc90d1a9bf22883d26a94e9`.
-- **Merge-test SHA:** `403bee835b7d8ba8e286045266babf48975cf466`.
-- **Bounded delta:** 8 files, 575 additions, 19 deletions.
-- Added `src/spatial/navigation.js` for canonical URL/history/control/camera state.
-- Added `src/lib/useWorldNavigation.js` for browser-state binding.
-- Updated `src/App.jsx` so lane controls use canonical browser navigation state.
-- Updated `src/components/HeavyWorld.jsx` so camera state derives from the active canonical district and pointer is parallax-only.
-- Added `tests/world-navigation.test.mjs` with 10 deterministic navigation/camera tests.
-- Added `scripts/prove-world-navigation.mjs` for real Chromium CDP interaction proof.
+1. extract one pure adaptive-profile policy from the existing signal logic so tier decisions are deterministic and testable;
+2. include known network constraint signals in tier resolution where reliable: offline, Save-Data, effective 2G/3G, reduced motion, device memory and CPU hints;
+3. make `AdaptiveWorld` the single renderer-admission authority; remove duplicated static/WebGL gating from `App`;
+4. add WebGL capability preflight before HeavyWorld admission;
+5. add an explicit React error boundary so HeavyWorld/R3F initialization/runtime failure resolves to canonical `StaticNetwork` rather than a dead/blank world;
+6. expose fallback reason as non-sensitive DOM receipt state for validation (`policy-lite`, `save-data`, `reduced-motion`, `offline`, `webgl-unavailable`, `webgl-error` where applicable);
+7. define immutable full/balanced/lite render budgets:
+   - `full`: WebGL, capped DPR, shadows, richer particles/geometry;
+   - `balanced`: WebGL, lower DPR, no shadows, reduced particles/geometry;
+   - `lite`: static canonical network, zero Three.js requirement;
+8. drive primitive geometry segmentation from the tier budget instead of hard-coded high segment counts;
+9. preserve S1.PB browser/camera semantics exactly;
+10. enforce measured build budgets from the validated S1.PB baseline with explicit guard margin:
+    - entry application JS <= **220,000 raw bytes** and <= **70,000 gzip bytes**;
+    - lazy `HeavyWorld-*` JS <= **900,000 raw bytes** and <= **245,000 gzip bytes**;
+    - these are Sprint-1 guardrails, not universal framework limits;
+11. prove full / balanced / lite / Save-Data / reduced-motion / offline / WebGL-unavailable behavior in real Chromium using test-only CDP environment injection, never a production override;
+12. prove constrained modes never request `HeavyWorld-*`;
+13. preserve mobile rearrangement, canonical static topology, reduced-motion completeness, manifest/service-worker reachability and all prior governance/visual/spatial/navigation gates;
+14. manually inspect exported desktop/mobile/lite artifacts before merge.
 
-## Control contract validated
+## Scope OUT
+
+- no Sprint 2 learning-content schema/feed work;
+- no service-worker update/recovery redesign;
+- no provider deployment/live-domain work;
+- no fake FPS or synthetic “performance score” claims without measured evidence;
+- no replacement of Three/R3F solely to silence the >500 kB warning;
+- no copied Towers geometry/assets;
+- no learner completion/progression implementation;
+- no visual redesign of the validated spatial identity.
+
+## Governed budget contract
 
 ```text
-tap/click lane = select district + history.pushState
-Back/Forward   = popstate restores district; never re-push
-?lane=<id>     = deep-linkable canonical district state
-#anchor        = document scroll context; preserves lane query
-pointer        = bounded camera parallax only; never lane mutation
-camera         = derives from active district; never source of truth
+full     = WebGL admitted only when unconstrained + WebGL available
+balanced = WebGL admitted with reduced DPR/particles/geometry; no shadows
+lite     = canonical StaticNetwork; HeavyWorld request forbidden
+
+entry JS raw  <= 220,000 bytes
+entry JS gzip <=  70,000 bytes
+HeavyWorld raw  <= 900,000 bytes
+HeavyWorld gzip <= 245,000 bytes
 ```
 
-## Validation receipts
+The existing bundler warning for a >500 kB optional Three/R3F chunk remains visible. S1.PC validates isolation, constrained-path exclusion and explicit budget ceilings rather than hiding the warning.
 
-- **APWA CI:** run `32910959682` — SUCCESS.
-- **Job:** `98004884948` — SUCCESS.
-- Governance tests 6/6 PASS.
-- Visual-system tests 10/10 PASS.
-- Spatial-model tests 7/7 PASS.
-- World-navigation tests 10/10 PASS.
-- Opportunity deep-link WebGL + camera binding PASS.
-- Opportunity deep-link lite/static PASS.
-- Real Chromium CDP proof PASS: Learn -> Build -> Community -> Back -> Forward -> `#pathways`; URL/UI/camera state stayed coherent.
-- Production entry JS ≈209.65 kB minified / 66.37 kB gzip.
-- Optional HeavyWorld ≈887.37 kB minified / 235.72 kB gzip; >500 kB warning intentionally retained for S1.PC.
-- Desktop/mobile/reduced-motion-lite PASS.
-- Lite HeavyWorld request FALSE / PASS.
-- Artifact `9586538171`; digest `sha256:4345b1680e0f8cd38ab8f217c380dfe2c2973d44fbf8933a6718dfc7a7fc6880`.
-- Manual desktop/mobile/lite screenshots PASS.
-- Local secondary WebGL replay was excluded because the local container lacks usable EGL; GitHub Actions Chromium is authoritative.
+## Planned validation
 
-## 2026-08-26T01:33:00+02:00 — POST-SEED — SPRINT 1 / RUN B
+- adaptive-policy unit tests covering every signal boundary and fallback reason;
+- render-budget unit tests ensuring lite cannot become WebGL and balanced cannot silently regain full cost;
+- existing governance 6/6, visual 10/10, spatial 7/7, world-navigation 10/10 regression suites;
+- production Vite build;
+- deterministic bundle-size/gzip budget script against built assets;
+- Chromium CDP adaptive matrix using test-only navigator/matchMedia/canvas-context overrides before document load;
+- full -> WebGL + HeavyWorld admitted;
+- balanced -> WebGL + lower budget marker;
+- lite low-device -> static + no HeavyWorld;
+- Save-Data -> static + no HeavyWorld;
+- reduced-motion -> static + no HeavyWorld;
+- offline signal -> static + no HeavyWorld;
+- WebGL unavailable -> static + explicit fallback reason + no HeavyWorld;
+- existing S1.PB Back/Forward/deep-link proof;
+- desktop/mobile/lite screenshots and manual inspection.
 
-- **Status:** DONE / VALIDATED.
-- **Exact reviewed head:** `0afbb0937054d6b1abc90d1a9bf22883d26a94e9`.
-- **PR:** #9.
-- **POC/FOC verdict:** `POC_VALIDATED`.
-- **Residual uncertainty:** final tier/performance budgets and WebGL failure/recovery remain S1.PC.
+## HOLD / rollback conditions
 
-## 2026-08-26T01:34:00+02:00 — MERGE RECONCILIATION — SPRINT 1 / RUN B
+- constrained profile requests `HeavyWorld-*`;
+- WebGL unavailable produces blank/dead UI instead of canonical static network;
+- adaptive logic exists in more than one competing authority;
+- full/balanced/lite budget tests disagree with runtime DOM receipts;
+- entry or HeavyWorld asset exceeds governed ceiling;
+- mobile/reduced-motion/static topology regresses;
+- S1.PB browser/camera semantics regress;
+- any test/CI receipt is inferred rather than observed.
 
-- **PR #9 merge SHA:** `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`.
-- Exact validated head remained `0afbb0937054d6b1abc90d1a9bf22883d26a94e9` at merge.
-- Merge method: normal merge with expected-head SHA guard.
-- S1.PB is now **DONE / MERGED / POC_VALIDATED**.
-- No unresolved S1.PB FOC remains.
-- **Next admissible action:** recover S1.PC implementation surface, PRE-SEED S1.PC from this reconciled main state, then execute only adaptive 3D hardening.
+- **Next admissible action:** create `sprint-01/run-c-adaptive-3d-hardening` from this PRE-SEED commit and implement only S1.PC.
 
 ---
 
-# S1.PC — QUEUED CONTRACT FROM MASTER ISSUE #3
+# NAMED HOLDS OUTSIDE S1.PC
 
-- full/balanced/lite budgets;
-- mobile rearrangement;
-- reduced motion;
-- WebGL failure fallback;
-- performance budget and receipts.
-
-Sprint 1 closes only after S1.PC is either `POC_VALIDATED` or explicitly HOLD/BLOCKED with the unresolved boundary named.
-
----
-
-# NAMED HOLDS
-
-- HeavyWorld >500 kB -> S1.PC.
-- WebGL-failure/final tier budgets -> S1.PC.
 - Provider/live domain -> S6.PC.
-- Offline update/recovery -> later APWA resilience.
+- Offline update/recovery lifecycle -> later APWA resilience.
 - Branch protection not enabled/proven.
 
 ---
