@@ -48,6 +48,9 @@ jobs:
       - name: Validate adaptive render policy
         run: node --test tests/adaptive-render-policy.test.mjs
 
+      - name: Validate content and provenance contract
+        run: node --test tests/content-contract.test.mjs
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
@@ -239,6 +242,7 @@ jobs:
 
           grep -q 'Learn enough to move.' proof/desktop.html
           grep -q 'Learning Network' proof/desktop.html
+          grep -q 'contracts ready, sources pending' proof/desktop.html
           grep -q 'data-active-lane="learn"' proof/desktop.html
           grep -q 'data-spatial-renderer="webgl"' proof/desktop.html
           grep -q 'data-camera-lane="learn"' proof/desktop.html
@@ -269,6 +273,7 @@ jobs:
 
           grep -q 'Mobile learning world' proof/mobile.html
           grep -q 'Learn enough to move.' proof/mobile.html
+          grep -q 'contracts ready, sources pending' proof/mobile.html
           grep -q 'data-active-lane="learn"' proof/mobile.html
           test -s proof/mobile.png
 
@@ -299,6 +304,7 @@ jobs:
             http://127.0.0.1:4173/ > proof/mobile-lite.html
 
           grep -q '>lite</span>' proof/mobile-lite.html
+          grep -q 'contracts ready, sources pending' proof/mobile-lite.html
           grep -q 'data-active-lane="learn"' proof/mobile-lite.html
           grep -q 'data-spatial-renderer="static"' proof/mobile-lite.html
           grep -q 'data-spatial-budget="lite"' proof/mobile-lite.html
@@ -315,7 +321,7 @@ jobs:
         shell: bash
         run: |
           {
-            echo "schema=s1_pc_adaptive_3d_hardening_v1"
+            echo "schema=s2_pa_content_provenance_v1"
             echo "head_sha=${{ github.event.pull_request.head.sha }}"
             echo "merge_test_sha=${{ github.sha }}"
             echo "run_id=${{ github.run_id }}"
@@ -327,21 +333,18 @@ jobs:
             echo "spatial_model_tests=pass"
             echo "world_navigation_unit_tests=pass"
             echo "adaptive_render_policy_tests=pass"
+            echo "content_provenance_contract_tests=pass"
+            echo "youtube_reference_boundary_tests=pass"
             echo "spatial_bundle_budget=pass"
             echo "adaptive_runtime_matrix=pass"
-            echo "full_webgl=pass"
-            echo "balanced_webgl=pass"
-            echo "lite_static=pass"
-            echo "save_data_static=pass"
-            echo "reduced_motion_static=pass"
-            echo "offline_static=pass"
-            echo "webgl_unavailable_static=pass"
             echo "constrained_heavy_chunk_requested=false"
             echo "canonical_deeplink_webgl=pass"
             echo "canonical_deeplink_lite=pass"
             echo "browser_back_forward=pass"
             echo "anchor_preserves_lane=pass"
             echo "camera_lane_binding=pass"
+            echo "content_feed_connected=false"
+            echo "external_media_admitted=false"
             echo "desktop=pass"
             echo "mobile=pass"
             echo "reduced_motion_lite=pass"
@@ -354,15 +357,18 @@ jobs:
         uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: s1-pc-adaptive-3d-proof-${{ github.event.pull_request.head.sha }}
+          name: s2-pa-content-provenance-proof-${{ github.event.pull_request.head.sha }}
           path: |
             proof
             dist
             package-lock.json
             governance/visual-system
+            governance/content
+            src/content
             src/spatial
             src/lib/adaptive.js
             src/components/AdaptiveWorld.jsx
+            tests/content-contract.test.mjs
             scripts/prove-world-navigation.mjs
             scripts/prove-adaptive-runtime.mjs
             scripts/check-spatial-budgets.mjs
