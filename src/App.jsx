@@ -182,10 +182,10 @@ export default function App() {
               <span className="eyebrow">YouTube + workshop library</span>
               <h2>Watch. Try. Return with proof.</h2>
               <p>
-                PR2 wires the governed lesson/video data model. Until a real feed is connected, this surface stays explicit
-                instead of inventing videos, views or completion numbers.
+                Content contracts now govern type, depth, provenance and lifecycle. The live lesson/video feed remains
+                deliberately unconnected until the editorial and lesson-route runs can prove real sources.
               </p>
-              <span className="pending-state">Lesson feed · wiring next</span>
+              <span className="pending-state">Lesson feed · contracts ready, sources pending</span>
             </div>
           </div>
         </section>
