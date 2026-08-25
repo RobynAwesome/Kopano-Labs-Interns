@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-26T01:45:00+02:00 (SAST)
+> **Updated:** 2026-08-26T01:46:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -14,30 +14,28 @@
 
 ## Current objective
 
-Complete the exact-head merge and reconciliation of **Sprint 1 / Run C (S1.PC) — Adaptive 3D hardening**.
-
-PR #10 is validated on exact head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`. Do not begin Sprint 2 until that exact head is merged and its merge SHA is reconciled here.
+**Sprint 1 is CLOSED / POC_VALIDATED.** Recover the current learning-content truth, reconcile any stale placeholder narration, and PRE-SEED **Sprint 2 / Run A (S2.PA) — Content + provenance contracts** before material content implementation.
 
 | Run | State | Canonical truth |
 |---|---|---|
 | **Sprint 0** | **CLOSED / POC_VALIDATED** | Foundation + governance + visual truth lock complete. |
-| **S1.PA — Spatial identity primitives** | **DONE / MERGED / POC_VALIDATED** | PR #8 merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`; shared static/WebGL topology proven. |
-| **S1.PB — Camera + world-state navigation** | **DONE / MERGED / POC_VALIDATED** | PR #9 merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`; URL/history/camera authority proven. |
-| **S1.PC — Adaptive 3D hardening** | **DONE / VALIDATED / PR #10 READY TO MERGE** | Adaptive policy, tier budgets, constrained HeavyWorld exclusion, WebGL failure fallback and measured byte ceilings all pass on exact head `65d3d9cc...`. |
+| **Sprint 1** | **CLOSED / POC_VALIDATED** | Spatial identity + browser navigation + adaptive 3D hardening all validated and merged. |
+| **S2.PA — Content + provenance contracts** | **NEXT / NOT YET PRE-SEEDED** | Recover current content model truth, then define governed lesson/article/video/resource + provenance + depth + lifecycle contracts. |
+| **S2.PB — Editorial Knowledge Stream** | **QUEUED** | No implementation before S2.PA receipt. |
+| **S2.PC — Lesson route + offline learning** | **QUEUED** | No implementation before S2.PA/S2.PB receipts. |
 
 ```text
-S1.PA ✅
--> S1.PB ✅
--> S1.PC exact-head merge + reconcile
--> Sprint 1 close
--> Sprint 2 / Run A PRE-SEED
+Sprint 0 ✅
+-> Sprint 1 ✅
+-> recover content reality
+-> S2.PA PRE-SEED
 ```
 
 ---
 
-# PREDECESSOR RECEIPTS
+# SPRINT 1 RECEIPT CHAIN
 
-## S1.PA
+## S1.PA — Spatial identity primitives
 
 - PR #8 exact head `4a8c3cd2bc18ba7e6537d1c59773a001ff91153d`.
 - CI `32756479868`; artifact `9531042977`.
@@ -45,7 +43,7 @@ S1.PA ✅
 - Merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`.
 - Verdict `POC_VALIDATED`.
 
-## S1.PB
+## S1.PB — Camera + world-state navigation
 
 - PRE-SEED `df222abe4346272c9cefd11c4dba158ed3a3784a`.
 - PR #9 exact head `0afbb0937054d6b1abc90d1a9bf22883d26a94e9`.
@@ -54,132 +52,109 @@ S1.PA ✅
 - Real Chromium deep-link / Back / Forward / anchor proof PASS.
 - Artifact `9586538171`; digest `sha256:4345b1680e0f8cd38ab8f217c380dfe2c2973d44fbf8933a6718dfc7a7fc6880`.
 - Merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`.
-- Reconciliation commit before S1.PC PRE-SEED: `d000a2717207e44dae8ede553958d0ce794d751f`.
 - Verdict `POC_VALIDATED`.
 
----
+## S1.PC — Adaptive 3D hardening
 
-# S1.PC — ADAPTIVE 3D HARDENING
+- PRE-SEED `63d7872aaab61ec27c4a68e21a26892915c9fcd4`.
+- PR #10 exact reviewed/merged head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
+- Merge-test SHA `4fe495c23bcd35ab416fe4ce63fb5fb96ae54d64`.
+- CI `32911942643`; job `98007714197`.
+- Governance 6/6, visual 10/10, spatial 7/7, world-navigation 10/10, adaptive-render 13/13 PASS.
+- Measured bundle proof PASS:
+  - entry 212,108 raw / 66,444 gzip <= 220,000 / 70,000;
+  - HeavyWorld 887,708 raw / 233,912 gzip <= 900,000 / 245,000.
+- Chromium matrix PASS for full / balanced / low-device lite / Save-Data / reduced-motion / offline / WebGL-unavailable.
+- Constrained HeavyWorld request FALSE.
+- S1.PB browser navigation regression PASS.
+- Desktop/mobile/lite screenshots PASS.
+- Artifact `9586826584`; digest `sha256:1faf545b83db8cea2bcea57d60609846721dd5a303a9fa597c6a34a1ccea1000`.
+- **Merge SHA:** `a57220f5b4eaeba0d780558377f1b35d9d9fcfa0`.
+- Exact-head SHA guard used at merge.
+- Verdict `POC_VALIDATED`.
 
-## PRE-SEED — 2026-08-26T01:36:00+02:00
+## 2026-08-26T01:46:00+02:00 — SPRINT 1 MERGE RECONCILIATION
 
-- **PRE-SEED commit:** `63d7872aaab61ec27c4a68e21a26892915c9fcd4`.
-- **Branch:** `sprint-01/run-c-adaptive-3d-hardening`.
-- **Objective:** harden the validated S1 spatial world across device/network/motion/WebGL constraints without redesigning it.
-- **Scope IN:** one pure adaptive policy, one renderer-admission authority, WebGL preflight/error fallback, full/balanced/lite budgets, tier-driven geometry, measured bundle ceilings, real Chromium adaptive matrix, constrained HeavyWorld exclusion, all prior regression gates.
-- **Scope OUT:** Sprint 2 content, service-worker update/recovery redesign, deployment, fake FPS/performance-score claims, learner completion, spatial redesign.
+- PR #10 merged at exact validated head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
+- Merge SHA `a57220f5b4eaeba0d780558377f1b35d9d9fcfa0`.
+- No unresolved S1.PA/PB/PC FOC remains inside Sprint 1 bounded scope.
+- **Sprint 1 verdict:** `CLOSED / POC_VALIDATED`.
 
-## Exact implementation
-
-- **PR #10:** `S1.PC — Harden adaptive 3D runtime`.
-- **Exact reviewed head:** `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
-- **Merge-test SHA:** `4fe495c23bcd35ab416fe4ce63fb5fb96ae54d64`.
-- **Bounded delta:** 12 files, 796 additions, 68 deletions; no Sprint-2/service-worker/deployment leakage.
-- Added `src/spatial/render-policy.js` as the single pure signals -> tier -> renderer/budget contract.
-- Refactored `src/lib/adaptive.js` to consume that policy.
-- `AdaptiveWorld` is now the single renderer-admission authority with WebGL preflight and explicit error fallback to canonical `StaticNetwork`.
-- Static fallback exposes governed non-sensitive reason receipts.
-- Full / balanced / lite budgets are immutable and machine-testable.
-- Balanced reduces DPR, particles, geometry, shadows and antialiasing relative to full.
-- Primitive geometry segments now derive from the active WebGL budget.
-- Added 13 adaptive-policy tests.
-- Added deterministic raw/gzip build-budget enforcement.
-- Added CDP runtime matrix for full / balanced / low-device lite / Save-Data / reduced-motion / offline / WebGL-unavailable.
-
-## Governed performance contract validated
+Validated Sprint 1 capability:
 
 ```text
-entry JS raw  <= 220,000 bytes
-entry JS gzip <=  70,000 bytes
-HeavyWorld raw  <= 900,000 bytes
-HeavyWorld gzip <= 245,000 bytes
-
-full     -> WebGL / DPR <= 1.6 / shadows / richer geometry / 128 particles
-balanced -> WebGL / DPR <= 1.25 / no shadows / no AA / lower geometry / 48 particles
-lite     -> canonical StaticNetwork / HeavyWorld forbidden
-```
-
-The Vite >500 kB warning for the optional Three/R3F chunk remains visible and was not suppressed.
-
-## Validation receipts
-
-- **APWA CI:** run `32911942643` — SUCCESS.
-- **Job:** `98007714197` — SUCCESS.
-- **Repository governance:** 6/6 PASS.
-- **Visual malformed-state tests:** 10/10 PASS.
-- **Spatial-model tests:** 7/7 PASS.
-- **World-navigation tests:** 10/10 PASS.
-- **Adaptive-render policy tests:** 13/13 PASS.
-- **Production build:** PASS.
-- **Measured bundle budget proof:** PASS:
-  - entry `index-sceAgI_C.js`: **212,108 raw / 66,444 gzip** vs 220,000 / 70,000 ceiling;
-  - `HeavyWorld-DamsuC7I.js`: **887,708 raw / 233,912 gzip** vs 900,000 / 245,000 ceiling.
-- **Chromium adaptive runtime matrix:** PASS:
-  - full -> `full` + WebGL + full budget + DPR max 1.6 + HeavyWorld requested;
-  - balanced -> `balanced` + WebGL + balanced budget + DPR max 1.25 + HeavyWorld requested;
-  - low-device -> lite/static + `policy-lite` + HeavyWorld FALSE;
-  - Save-Data -> lite/static + `save-data` + HeavyWorld FALSE;
-  - reduced-motion -> lite/static + `reduced-motion` + HeavyWorld FALSE;
-  - offline signal -> lite/static + `offline` + HeavyWorld FALSE;
-  - WebGL unavailable -> canonical static + `webgl-unavailable` + HeavyWorld FALSE.
-- Canonical Opportunity deep links: WebGL PASS; lite/static PASS.
-- S1.PB Chromium regression: Learn -> Build -> Community -> Back -> Forward -> `#pathways` PASS; URL/UI/camera stayed coherent.
-- Desktop/mobile/reduced-motion-lite runtime PASS.
-- Lite netlog HeavyWorld request FALSE / PASS.
-- Manifest + service-worker static surfaces reachable / PASS.
-- **Artifact:** `9586826584` — `s1-pc-adaptive-3d-proof-65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
-- **Artifact digest:** `sha256:1faf545b83db8cea2bcea57d60609846721dd5a303a9fa597c6a34a1ccea1000`.
-- **Manual screenshot inspection:** desktop balanced PASS; mobile balanced PASS; lite/reduced-motion PASS; no observed hierarchy, caption, route, CTA or thumb-dock regression.
-
-## 2026-08-26T01:45:00+02:00 — POST-SEED — SPRINT 1 / RUN C
-
-- **Status:** DONE / VALIDATED / READY TO MERGE.
-- **Actor / validator:** DPF/Forge stateless renter + GitHub Actions + manual artifact inspection.
-- **Exact reviewed head SHA:** `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
-- **PR:** #10.
-- **Changed files / bounded delta:** 12 files; 796 additions; 68 deletions.
-- **Errors / FOC discovered:** none unresolved inside S1.PC bounded scope.
-- **POC/FOC verdict:** `POC_VALIDATED` for adaptive 3D hardening.
-- **Merge state:** NOT YET MERGED at this receipt.
-- **Residual uncertainty outside scope:** provider/live deployment remains S6.PC; service-worker update/recovery lifecycle remains later APWA resilience; branch protection remains unproven.
-- **HOLD condition:** any PR #10 head movement invalidates exact-head merge admission and requires revalidation.
-- **Next admissible action:** merge PR #10 only if head remains `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`; reconcile merge SHA; close Sprint 1; recover and PRE-SEED S2.PA.
-
----
-
-# SPRINT 1 EXIT GATE
-
-Sprint 1 becomes **CLOSED / POC_VALIDATED** only after PR #10 exact-head merge reconciliation.
-
-Validated capability chain after reconciliation will be:
-
-```text
-original spatial primitives
+original Kopano spatial primitives
++ shared static/WebGL topology
 + browser-addressable district navigation
++ native Back/Forward/deep-link semantics
 + route-aware camera projection
 + adaptive full/balanced/lite admission
-+ constrained-mode canonical static fallback
++ constrained canonical static fallback
 + WebGL-unavailable recovery
 + measured bundle guardrails
 ```
 
 ---
 
-# NAMED HOLDS OUTSIDE S1.PC
+# SPRINT 2 CONTRACT FROM MASTER ISSUE #3
+
+## S2.PA — Content + provenance contracts
+
+- lesson / article / video / resource schema;
+- source ownership / provenance;
+- YouTube metadata adapter boundary;
+- GLANCE / LEARN / BUILD depth tags;
+- publish / update / archive state.
+
+## S2.PB — Editorial Knowledge Stream
+
+- magazine/feed composition;
+- feature, short-form, explainer, video, project, event and challenge modules;
+- visual hierarchy instead of card-wall repetition;
+- responsive/rearranged mobile feed.
+
+## S2.PC — Lesson route + offline learning
+
+- lesson detail route;
+- saved/offline surfaces;
+- progress state without fake completion;
+- search/filter fundamentals;
+- weak-network resilience receipts.
+
+Sprint 2 exit: real content can be discovered, consumed and resumed.
+
+---
+
+# CURRENT REQUIRED RECOVERY BEFORE S2.PA PRE-SEED
+
+The current UI contains placeholder copy claiming that a future/legacy “PR2 wires the governed lesson/video data model.” Do not accept that narration as implementation truth. Before S2.PA PRE-SEED:
+
+1. inspect repository content/data surfaces for any real lesson/article/video/resource model;
+2. inspect existing placeholders, IDs, ownership/provenance assumptions and third-party names;
+3. determine whether any YouTube adapter already exists;
+4. determine whether GLANCE / LEARN / BUILD depth is implemented anywhere beyond the S0.PC visual contract;
+5. reconcile findings into S2.PA scope rather than inventing migration state.
+
+---
+
+# NAMED HOLDS
 
 - Provider/live domain -> S6.PC.
-- Offline update/recovery lifecycle -> later APWA resilience.
+- Offline update/recovery lifecycle -> later APWA resilience / S6.PB.
 - Branch protection not enabled/proven.
 
 ---
 
 # GLOBAL INVARIANTS
 
+- Public learning core cannot be login-gated.
+- No fake content metrics, completions, affiliations, event attendance, hardware access or provider claims.
+- Third-party content ownership/provenance must be explicit; names do not imply endorsement.
+- BUILD depth requires an inspectable artefact/proof expectation; self-asserted completion is insufficient.
 - Three.js communicates state/navigation/relationships, not decoration.
 - Browser navigation state remains authoritative over camera motion.
 - Static and WebGL share canonical topology.
 - Mobile rearranges; lite/Save-Data are first-class.
-- No fabricated completion/progression/affiliation/opportunity receipts.
 - Towers remains reference only; no unlicensed copying.
 - Capability graduation remains `Contract -> Implementation -> Test -> Receipt -> POC -> Reusable Primitive`.
 - Missing authority/evidence/continuity = HOLD, not invention.
