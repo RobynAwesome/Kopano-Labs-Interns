@@ -40,9 +40,15 @@ function StaticRoute({ route, activeLane }) {
   )
 }
 
-export default function StaticNetwork({ activeLane = 'learn' }) {
+export default function StaticNetwork({ activeLane = 'learn', fallbackReason = null }) {
   return (
-    <div className="static-world" aria-hidden="true" data-spatial-renderer="static">
+    <div
+      className="static-world"
+      aria-hidden="true"
+      data-spatial-renderer="static"
+      data-spatial-budget="lite"
+      data-spatial-fallback-reason={fallbackReason || undefined}
+    >
       <svg viewBox="-5 -3 10 6" role="presentation">
         <defs>
           <radialGradient id="networkGlow">
