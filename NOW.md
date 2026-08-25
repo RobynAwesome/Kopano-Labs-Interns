@@ -2,7 +2,7 @@
 
 > **Current-state authority:** repository-root `NOW.md`
 >
-> **Updated:** 2026-08-26T01:36:00+02:00 (SAST)
+> **Updated:** 2026-08-26T01:45:00+02:00 (SAST)
 >
 > **Master program:** Issue #3 — `Canonical Program — Kopano Labs Learning Network APWA (7 Sprints × 3 PR Runs)`
 >
@@ -14,19 +14,23 @@
 
 ## Current objective
 
-Execute **Sprint 1 / Run C (S1.PC) — Adaptive 3D hardening** and close Sprint 1 only if its renderer admission, constrained-device behavior, WebGL failure recovery and measurable budgets are receipted.
+Complete the exact-head merge and reconciliation of **Sprint 1 / Run C (S1.PC) — Adaptive 3D hardening**.
+
+PR #10 is validated on exact head `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`. Do not begin Sprint 2 until that exact head is merged and its merge SHA is reconciled here.
 
 | Run | State | Canonical truth |
 |---|---|---|
 | **Sprint 0** | **CLOSED / POC_VALIDATED** | Foundation + governance + visual truth lock complete. |
 | **S1.PA — Spatial identity primitives** | **DONE / MERGED / POC_VALIDATED** | PR #8 merge `701dec2b37fd7eb8f1c925ae35150aba1342a45a`; shared static/WebGL topology proven. |
 | **S1.PB — Camera + world-state navigation** | **DONE / MERGED / POC_VALIDATED** | PR #9 merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`; URL/history/camera authority proven. |
-| **S1.PC — Adaptive 3D hardening** | **ACTIVE / PRE-SEEDED** | One adaptive policy, measurable tier budgets, constrained-path HeavyWorld exclusion, WebGL admission/failure fallback and performance receipts. |
+| **S1.PC — Adaptive 3D hardening** | **DONE / VALIDATED / PR #10 READY TO MERGE** | Adaptive policy, tier budgets, constrained HeavyWorld exclusion, WebGL failure fallback and measured byte ceilings all pass on exact head `65d3d9cc...`. |
 
 ```text
 S1.PA ✅
 -> S1.PB ✅
--> S1.PC ACTIVE
+-> S1.PC exact-head merge + reconcile
+-> Sprint 1 close
+-> Sprint 2 / Run A PRE-SEED
 ```
 
 ---
@@ -50,102 +54,114 @@ S1.PA ✅
 - Real Chromium deep-link / Back / Forward / anchor proof PASS.
 - Artifact `9586538171`; digest `sha256:4345b1680e0f8cd38ab8f217c380dfe2c2973d44fbf8933a6718dfc7a7fc6880`.
 - Merge `ac6848b240f26c6aeb47abfe5afcafaa00f528f9`.
-- S1.PB reconciliation commit immediately before this PRE-SEED: `d000a2717207e44dae8ede553958d0ce794d751f`.
+- Reconciliation commit before S1.PC PRE-SEED: `d000a2717207e44dae8ede553958d0ce794d751f`.
 - Verdict `POC_VALIDATED`.
 
 ---
 
-# 2026-08-26T01:36:00+02:00 — PRE-SEED — SPRINT 1 / RUN C
+# S1.PC — ADAPTIVE 3D HARDENING
 
-- **Status:** IN-PROGRESS.
-- **Actor:** DPF/Forge stateless renter.
-- **Master issue:** #3.
-- **Sprint objective:** finish Sprint 1 with a spatial renderer that is useful, navigable and adaptive under real device/network/motion/failure constraints.
-- **PR-run objective:** harden the existing renderer admission and quality system without redesigning the validated S1.PA/S1.PB world.
-- **Base branch:** `main`.
-- **Exact base before this PRE-SEED commit:** `d000a2717207e44dae8ede553958d0ce794d751f`.
-- **Intended branch:** `sprint-01/run-c-adaptive-3d-hardening`.
-- **Dependencies:** S0.PC visual contract; S1.PA shared topology; S1.PB browser/camera state; current `useAdaptiveProfile`, `AdaptiveWorld`, `HeavyWorld`, `StaticNetwork` and APWA CI.
+## PRE-SEED — 2026-08-26T01:36:00+02:00
 
-## Scope IN
+- **PRE-SEED commit:** `63d7872aaab61ec27c4a68e21a26892915c9fcd4`.
+- **Branch:** `sprint-01/run-c-adaptive-3d-hardening`.
+- **Objective:** harden the validated S1 spatial world across device/network/motion/WebGL constraints without redesigning it.
+- **Scope IN:** one pure adaptive policy, one renderer-admission authority, WebGL preflight/error fallback, full/balanced/lite budgets, tier-driven geometry, measured bundle ceilings, real Chromium adaptive matrix, constrained HeavyWorld exclusion, all prior regression gates.
+- **Scope OUT:** Sprint 2 content, service-worker update/recovery redesign, deployment, fake FPS/performance-score claims, learner completion, spatial redesign.
 
-1. extract one pure adaptive-profile policy from the existing signal logic so tier decisions are deterministic and testable;
-2. include known network constraint signals in tier resolution where reliable: offline, Save-Data, effective 2G/3G, reduced motion, device memory and CPU hints;
-3. make `AdaptiveWorld` the single renderer-admission authority; remove duplicated static/WebGL gating from `App`;
-4. add WebGL capability preflight before HeavyWorld admission;
-5. add an explicit React error boundary so HeavyWorld/R3F initialization/runtime failure resolves to canonical `StaticNetwork` rather than a dead/blank world;
-6. expose fallback reason as non-sensitive DOM receipt state for validation (`policy-lite`, `save-data`, `reduced-motion`, `offline`, `webgl-unavailable`, `webgl-error` where applicable);
-7. define immutable full/balanced/lite render budgets:
-   - `full`: WebGL, capped DPR, shadows, richer particles/geometry;
-   - `balanced`: WebGL, lower DPR, no shadows, reduced particles/geometry;
-   - `lite`: static canonical network, zero Three.js requirement;
-8. drive primitive geometry segmentation from the tier budget instead of hard-coded high segment counts;
-9. preserve S1.PB browser/camera semantics exactly;
-10. enforce measured build budgets from the validated S1.PB baseline with explicit guard margin:
-    - entry application JS <= **220,000 raw bytes** and <= **70,000 gzip bytes**;
-    - lazy `HeavyWorld-*` JS <= **900,000 raw bytes** and <= **245,000 gzip bytes**;
-    - these are Sprint-1 guardrails, not universal framework limits;
-11. prove full / balanced / lite / Save-Data / reduced-motion / offline / WebGL-unavailable behavior in real Chromium using test-only CDP environment injection, never a production override;
-12. prove constrained modes never request `HeavyWorld-*`;
-13. preserve mobile rearrangement, canonical static topology, reduced-motion completeness, manifest/service-worker reachability and all prior governance/visual/spatial/navigation gates;
-14. manually inspect exported desktop/mobile/lite artifacts before merge.
+## Exact implementation
 
-## Scope OUT
+- **PR #10:** `S1.PC — Harden adaptive 3D runtime`.
+- **Exact reviewed head:** `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
+- **Merge-test SHA:** `4fe495c23bcd35ab416fe4ce63fb5fb96ae54d64`.
+- **Bounded delta:** 12 files, 796 additions, 68 deletions; no Sprint-2/service-worker/deployment leakage.
+- Added `src/spatial/render-policy.js` as the single pure signals -> tier -> renderer/budget contract.
+- Refactored `src/lib/adaptive.js` to consume that policy.
+- `AdaptiveWorld` is now the single renderer-admission authority with WebGL preflight and explicit error fallback to canonical `StaticNetwork`.
+- Static fallback exposes governed non-sensitive reason receipts.
+- Full / balanced / lite budgets are immutable and machine-testable.
+- Balanced reduces DPR, particles, geometry, shadows and antialiasing relative to full.
+- Primitive geometry segments now derive from the active WebGL budget.
+- Added 13 adaptive-policy tests.
+- Added deterministic raw/gzip build-budget enforcement.
+- Added CDP runtime matrix for full / balanced / low-device lite / Save-Data / reduced-motion / offline / WebGL-unavailable.
 
-- no Sprint 2 learning-content schema/feed work;
-- no service-worker update/recovery redesign;
-- no provider deployment/live-domain work;
-- no fake FPS or synthetic “performance score” claims without measured evidence;
-- no replacement of Three/R3F solely to silence the >500 kB warning;
-- no copied Towers geometry/assets;
-- no learner completion/progression implementation;
-- no visual redesign of the validated spatial identity.
-
-## Governed budget contract
+## Governed performance contract validated
 
 ```text
-full     = WebGL admitted only when unconstrained + WebGL available
-balanced = WebGL admitted with reduced DPR/particles/geometry; no shadows
-lite     = canonical StaticNetwork; HeavyWorld request forbidden
-
 entry JS raw  <= 220,000 bytes
 entry JS gzip <=  70,000 bytes
 HeavyWorld raw  <= 900,000 bytes
 HeavyWorld gzip <= 245,000 bytes
+
+full     -> WebGL / DPR <= 1.6 / shadows / richer geometry / 128 particles
+balanced -> WebGL / DPR <= 1.25 / no shadows / no AA / lower geometry / 48 particles
+lite     -> canonical StaticNetwork / HeavyWorld forbidden
 ```
 
-The existing bundler warning for a >500 kB optional Three/R3F chunk remains visible. S1.PC validates isolation, constrained-path exclusion and explicit budget ceilings rather than hiding the warning.
+The Vite >500 kB warning for the optional Three/R3F chunk remains visible and was not suppressed.
 
-## Planned validation
+## Validation receipts
 
-- adaptive-policy unit tests covering every signal boundary and fallback reason;
-- render-budget unit tests ensuring lite cannot become WebGL and balanced cannot silently regain full cost;
-- existing governance 6/6, visual 10/10, spatial 7/7, world-navigation 10/10 regression suites;
-- production Vite build;
-- deterministic bundle-size/gzip budget script against built assets;
-- Chromium CDP adaptive matrix using test-only navigator/matchMedia/canvas-context overrides before document load;
-- full -> WebGL + HeavyWorld admitted;
-- balanced -> WebGL + lower budget marker;
-- lite low-device -> static + no HeavyWorld;
-- Save-Data -> static + no HeavyWorld;
-- reduced-motion -> static + no HeavyWorld;
-- offline signal -> static + no HeavyWorld;
-- WebGL unavailable -> static + explicit fallback reason + no HeavyWorld;
-- existing S1.PB Back/Forward/deep-link proof;
-- desktop/mobile/lite screenshots and manual inspection.
+- **APWA CI:** run `32911942643` — SUCCESS.
+- **Job:** `98007714197` — SUCCESS.
+- **Repository governance:** 6/6 PASS.
+- **Visual malformed-state tests:** 10/10 PASS.
+- **Spatial-model tests:** 7/7 PASS.
+- **World-navigation tests:** 10/10 PASS.
+- **Adaptive-render policy tests:** 13/13 PASS.
+- **Production build:** PASS.
+- **Measured bundle budget proof:** PASS:
+  - entry `index-sceAgI_C.js`: **212,108 raw / 66,444 gzip** vs 220,000 / 70,000 ceiling;
+  - `HeavyWorld-DamsuC7I.js`: **887,708 raw / 233,912 gzip** vs 900,000 / 245,000 ceiling.
+- **Chromium adaptive runtime matrix:** PASS:
+  - full -> `full` + WebGL + full budget + DPR max 1.6 + HeavyWorld requested;
+  - balanced -> `balanced` + WebGL + balanced budget + DPR max 1.25 + HeavyWorld requested;
+  - low-device -> lite/static + `policy-lite` + HeavyWorld FALSE;
+  - Save-Data -> lite/static + `save-data` + HeavyWorld FALSE;
+  - reduced-motion -> lite/static + `reduced-motion` + HeavyWorld FALSE;
+  - offline signal -> lite/static + `offline` + HeavyWorld FALSE;
+  - WebGL unavailable -> canonical static + `webgl-unavailable` + HeavyWorld FALSE.
+- Canonical Opportunity deep links: WebGL PASS; lite/static PASS.
+- S1.PB Chromium regression: Learn -> Build -> Community -> Back -> Forward -> `#pathways` PASS; URL/UI/camera stayed coherent.
+- Desktop/mobile/reduced-motion-lite runtime PASS.
+- Lite netlog HeavyWorld request FALSE / PASS.
+- Manifest + service-worker static surfaces reachable / PASS.
+- **Artifact:** `9586826584` — `s1-pc-adaptive-3d-proof-65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
+- **Artifact digest:** `sha256:1faf545b83db8cea2bcea57d60609846721dd5a303a9fa597c6a34a1ccea1000`.
+- **Manual screenshot inspection:** desktop balanced PASS; mobile balanced PASS; lite/reduced-motion PASS; no observed hierarchy, caption, route, CTA or thumb-dock regression.
 
-## HOLD / rollback conditions
+## 2026-08-26T01:45:00+02:00 — POST-SEED — SPRINT 1 / RUN C
 
-- constrained profile requests `HeavyWorld-*`;
-- WebGL unavailable produces blank/dead UI instead of canonical static network;
-- adaptive logic exists in more than one competing authority;
-- full/balanced/lite budget tests disagree with runtime DOM receipts;
-- entry or HeavyWorld asset exceeds governed ceiling;
-- mobile/reduced-motion/static topology regresses;
-- S1.PB browser/camera semantics regress;
-- any test/CI receipt is inferred rather than observed.
+- **Status:** DONE / VALIDATED / READY TO MERGE.
+- **Actor / validator:** DPF/Forge stateless renter + GitHub Actions + manual artifact inspection.
+- **Exact reviewed head SHA:** `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`.
+- **PR:** #10.
+- **Changed files / bounded delta:** 12 files; 796 additions; 68 deletions.
+- **Errors / FOC discovered:** none unresolved inside S1.PC bounded scope.
+- **POC/FOC verdict:** `POC_VALIDATED` for adaptive 3D hardening.
+- **Merge state:** NOT YET MERGED at this receipt.
+- **Residual uncertainty outside scope:** provider/live deployment remains S6.PC; service-worker update/recovery lifecycle remains later APWA resilience; branch protection remains unproven.
+- **HOLD condition:** any PR #10 head movement invalidates exact-head merge admission and requires revalidation.
+- **Next admissible action:** merge PR #10 only if head remains `65d3d9cc9fcb0ee2487d3b9e7505bdd09aed6463`; reconcile merge SHA; close Sprint 1; recover and PRE-SEED S2.PA.
 
-- **Next admissible action:** create `sprint-01/run-c-adaptive-3d-hardening` from this PRE-SEED commit and implement only S1.PC.
+---
+
+# SPRINT 1 EXIT GATE
+
+Sprint 1 becomes **CLOSED / POC_VALIDATED** only after PR #10 exact-head merge reconciliation.
+
+Validated capability chain after reconciliation will be:
+
+```text
+original spatial primitives
++ browser-addressable district navigation
++ route-aware camera projection
++ adaptive full/balanced/lite admission
++ constrained-mode canonical static fallback
++ WebGL-unavailable recovery
++ measured bundle guardrails
+```
 
 ---
 
