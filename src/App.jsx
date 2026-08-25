@@ -7,14 +7,8 @@ import { useWorldNavigation } from './lib/useWorldNavigation.js'
 const AdaptiveWorld = lazy(() => import('./components/AdaptiveWorld.jsx'))
 
 function WorldSurface({ activeLane, profile }) {
-  const useSpatialRenderer = profile.tier !== 'lite' && !profile.saveData
-
-  if (!useSpatialRenderer) {
-    return <StaticNetwork activeLane={activeLane} />
-  }
-
   return (
-    <Suspense fallback={<StaticNetwork activeLane={activeLane} />}>
+    <Suspense fallback={<StaticNetwork activeLane={activeLane} fallbackReason="adaptive-module-loading" />}>
       <AdaptiveWorld activeLane={activeLane} profile={profile} />
     </Suspense>
   )
@@ -168,7 +162,6 @@ export default function App() {
                 className={`pathway-row ${lane.id === activeLane ? 'is-active' : ''}`}
                 key={lane.id}
                 onClick={() => selectLane(lane.id)}
-                data-pathway-lane={lane.id}
               >
                 <span className="pathway-index">{lane.index}</span>
                 <span className="pathway-main">

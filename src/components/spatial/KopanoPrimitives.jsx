@@ -3,22 +3,22 @@ import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { getRouteNodes, isRouteActive, routeMidpoint } from '../../spatial/network-model.js'
 
-export function KopanoDistrict({ district, active = false }) {
+export function KopanoDistrict({ district, active = false, quality }) {
   return (
     <group position={district.position}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.024, 0]}>
-        <ringGeometry args={[active ? 0.88 : 0.7, active ? 0.94 : 0.75, 48]} />
+        <ringGeometry args={[active ? 0.88 : 0.7, active ? 0.94 : 0.75, quality.districtRingSegments]} />
         <meshBasicMaterial color={district.tone} transparent opacity={active ? 0.34 : 0.14} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.012, 0]}>
-        <circleGeometry args={[active ? 0.86 : 0.68, 40]} />
+        <circleGeometry args={[active ? 0.86 : 0.68, quality.districtFillSegments]} />
         <meshBasicMaterial color={district.tone} transparent opacity={active ? 0.055 : 0.022} depthWrite={false} />
       </mesh>
     </group>
   )
 }
 
-export function KopanoNode({ node, index, active, profile }) {
+export function KopanoNode({ node, index, active, profile, quality }) {
   const group = useRef()
 
   useFrame((state) => {
@@ -41,8 +41,8 @@ export function KopanoNode({ node, index, active, profile }) {
 
   return (
     <group ref={group} position={node.position} scale={[1, 0.08, 1]}>
-      <mesh castShadow={profile.tier === 'full'} position={[0, 0.8, 0]}>
-        <cylinderGeometry args={[0.34, 0.52, 1.6, 12]} />
+      <mesh castShadow={quality.shadows} position={[0, 0.8, 0]}>
+        <cylinderGeometry args={[0.34, 0.52, 1.6, quality.nodeRadialSegments]} />
         <meshStandardMaterial
           color={node.tone}
           roughness={0.52}
@@ -65,7 +65,7 @@ export function KopanoNode({ node, index, active, profile }) {
   )
 }
 
-export function KopanoBeacon({ node, index, active, reducedMotion }) {
+export function KopanoBeacon({ node, index, active, reducedMotion, quality }) {
   const halo = useRef()
 
   useFrame((state) => {
@@ -77,11 +77,11 @@ export function KopanoBeacon({ node, index, active, reducedMotion }) {
   return (
     <group position={node.position}>
       <mesh ref={halo} position={[0, 1.72, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[active ? 0.55 : 0.42, 0.018, 6, 42]} />
+        <torusGeometry args={[active ? 0.55 : 0.42, 0.018, 6, quality.beaconTubularSegments]} />
         <meshBasicMaterial color={node.tone} transparent opacity={active ? 0.95 : 0.3} />
       </mesh>
       <mesh position={[0, 1.72, 0]}>
-        <ringGeometry args={[active ? 0.66 : 0.52, active ? 0.675 : 0.535, 36]} />
+        <ringGeometry args={[active ? 0.66 : 0.52, active ? 0.675 : 0.535, quality.beaconRingSegments]} />
         <meshBasicMaterial color={node.tone} transparent opacity={active ? 0.45 : 0.12} side={THREE.DoubleSide} />
       </mesh>
     </group>
@@ -106,7 +106,7 @@ export function KopanoRoute({ route, activeLane }) {
   )
 }
 
-export function KopanoGrowthMark({ route, activeLane }) {
+export function KopanoGrowthMark({ route, activeLane, quality }) {
   const { from, to } = getRouteNodes(route)
   const midpoint = routeMidpoint(route)
   const angle = Math.atan2(
@@ -122,11 +122,11 @@ export function KopanoGrowthMark({ route, activeLane }) {
         <meshBasicMaterial color={active ? '#f7fff9' : '#a7f3d0'} transparent opacity={active ? 0.92 : 0.48} />
       </mesh>
       <mesh position={[-0.13, 0, 0.03]} rotation={[0, 0, -0.55]} scale={[0.16, 0.06, 0.08]}>
-        <sphereGeometry args={[1, 10, 8]} />
+        <sphereGeometry args={[1, quality.leafWidthSegments, quality.leafHeightSegments]} />
         <meshBasicMaterial color="#a7f3d0" transparent opacity={active ? 0.72 : 0.34} />
       </mesh>
       <mesh position={[0.13, 0, 0.03]} rotation={[0, 0, 0.55]} scale={[0.16, 0.06, 0.08]}>
-        <sphereGeometry args={[1, 10, 8]} />
+        <sphereGeometry args={[1, quality.leafWidthSegments, quality.leafHeightSegments]} />
         <meshBasicMaterial color="#a7f3d0" transparent opacity={active ? 0.72 : 0.34} />
       </mesh>
     </group>

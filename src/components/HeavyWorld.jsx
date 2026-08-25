@@ -7,6 +7,7 @@ import {
   networkRoutes,
 } from '../spatial/network-model.js'
 import { cameraTargetForLane } from '../spatial/navigation.js'
+import { webglBudgetForTier } from '../spatial/render-policy.js'
 import {
   KopanoBeacon,
   KopanoDistrict,
@@ -14,12 +15,6 @@ import {
   KopanoNode,
   KopanoRoute,
 } from './spatial/KopanoPrimitives.jsx'
-
-const qualityByTier = {
-  full: { dpr: [1, 1.75], particles: 180, shadows: true },
-  balanced: { dpr: [1, 1.35], particles: 72, shadows: false },
-  lite: { dpr: 1, particles: 18, shadows: false },
-}
 
 function WorldRig({ profile, activeLane, children }) {
   const group = useRef()
@@ -114,12 +109,12 @@ function WorldScene({ activeLane, profile, quality }) {
 
       <WorldRig profile={profile} activeLane={activeLane}>
         <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow={quality.shadows}>
-          <circleGeometry args={[7.4, profile.tier === 'lite' ? 40 : 96]} />
+          <circleGeometry args={[7.4, quality.groundSegments]} />
           <meshStandardMaterial color="#0d2119" roughness={0.92} metalness={0.02} />
         </mesh>
 
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 0]}>
-          <ringGeometry args={[2.8, 2.84, 96]} />
+          <ringGeometry args={[2.8, 2.84, quality.worldRingSegments]} />
           <meshBasicMaterial color="#2b6d51" transparent opacity={0.42} />
         </mesh>
 
@@ -128,6 +123,7 @@ function WorldScene({ activeLane, profile, quality }) {
             key={district.id}
             district={district}
             active={district.nodeId === activeLane}
+            quality={quality}
           />
         ))}
 
@@ -136,7 +132,12 @@ function WorldScene({ activeLane, profile, quality }) {
         ))}
 
         {networkRoutes.map((route) => (
-          <KopanoGrowthMark key={`${route.id}-growth`} route={route} activeLane={activeLane} />
+          <KopanoGrowthMark
+            key={`${route.id}-growth`}
+            route={route}
+            activeLane={activeLane}
+            quality={quality}
+          />
         ))}
 
         {networkNodes.map((node, index) => (
@@ -146,6 +147,7 @@ function WorldScene({ activeLane, profile, quality }) {
             index={index}
             active={node.id === activeLane}
             profile={profile}
+            quality={quality}
           />
         ))}
 
@@ -156,6 +158,7 @@ function WorldScene({ activeLane, profile, quality }) {
             index={index}
             active={node.id === activeLane}
             reducedMotion={profile.reducedMotion}
+            quality={quality}
           />
         ))}
 
@@ -165,22 +168,34 @@ function WorldScene({ activeLane, profile, quality }) {
   )
 }
 
-export default function HeavyWorld({ activeLane, profile }) {
-  const quality = qualityByTier[profile.tier] || qualityByTier.balanced
+export default function HeavyWorld({ activeLane, profile, onFailure }) {
+  const quality = webglBudgetForTier(profile.tier)
 
   return (
     <div
       className="world-canvas"
       aria-hidden="true"
       data-spatial-renderer="webgl"
+      data-spatial-budget={profile.tier === 'full' ? 'full' : 'balanced'}
+      data-spatial-dpr-max={Array.isArray(quality.dpr) ? quality.dpr[1] : quality.dpr}
       data-camera-lane={activeLane}
     >
       <Canvas
         camera={{ position: [0, 4.4, 9.4], fov: 42, near: 0.1, far: 40 }}
         dpr={quality.dpr}
         shadows={quality.shadows}
-        gl={{ antialias: profile.tier !== 'lite', powerPreference: profile.tier === 'full' ? 'high-performance' : 'default' }}
+        gl={{ antialias: quality.antialias, powerPreference: quality.powerPreference }}
         fallback={<div className="world-fallback" />}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener(
+            'webglcontextlost',
+            (event) => {
+              event.preventDefault()
+              onFailure?.('webgl-error')
+            },
+            { once: true },
+          )
+        }}
       >
         <WorldScene activeLane={activeLane} profile={profile} quality={quality} />
       </Canvas>

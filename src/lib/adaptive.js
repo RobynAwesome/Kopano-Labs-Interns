@@ -1,30 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
+import { resolveAdaptiveProfile } from '../spatial/render-policy.js'
 
 function readProfile() {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
-  const saveData = Boolean(connection?.saveData)
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const memory = Number(navigator.deviceMemory || 0)
-  const cores = Number(navigator.hardwareConcurrency || 0)
-  const online = navigator.onLine
 
-  let tier = 'full'
-
-  if (saveData || reducedMotion || (memory > 0 && memory <= 2) || (cores > 0 && cores <= 2)) {
-    tier = 'lite'
-  } else if ((memory > 0 && memory <= 4) || (cores > 0 && cores <= 6)) {
-    tier = 'balanced'
-  }
-
-  return {
-    tier,
-    saveData,
-    reducedMotion,
-    memory: memory || null,
-    cores: cores || null,
-    online,
+  return resolveAdaptiveProfile({
+    saveData: Boolean(connection?.saveData),
+    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    memory: Number(navigator.deviceMemory || 0),
+    cores: Number(navigator.hardwareConcurrency || 0),
+    online: navigator.onLine,
     effectiveType: connection?.effectiveType || null,
-  }
+  })
 }
 
 export function useAdaptiveProfile() {

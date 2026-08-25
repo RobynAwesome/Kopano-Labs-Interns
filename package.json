@@ -13,7 +13,9 @@
     "test:visual-system": "node --test tests/visual-system-contract.test.mjs",
     "test:spatial-model": "node --test tests/spatial-model.test.mjs",
     "test:world-navigation": "node --test tests/world-navigation.test.mjs",
-    "validate": "npm run governance:check && npm run test:governance && npm run visual:check && npm run test:visual-system && npm run test:spatial-model && npm run test:world-navigation"
+    "test:adaptive-render": "node --test tests/adaptive-render-policy.test.mjs",
+    "budget:spatial": "node scripts/check-spatial-budgets.mjs",
+    "validate": "npm run governance:check && npm run test:governance && npm run visual:check && npm run test:visual-system && npm run test:spatial-model && npm run test:world-navigation && npm run test:adaptive-render"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
